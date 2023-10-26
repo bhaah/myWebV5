@@ -1,0 +1,92 @@
+
+<div class="login-block">
+    <div class="input-div">
+        <div class="input-feild">
+            
+                <h1>WELCOME</h1>
+            
+        </div>
+        <div class="input-feild">
+            Email
+            <input class="textbox" type="text" name="email" id="email" placeholder="example@bhaa.com" />
+        </div>
+        <div class="input-feild">
+            Password
+            <input class="textbox" type="text" name="password" id="password" />
+        </div>
+        <div class="input-feild">
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+    
+    <div class="btn-div">
+        <script src="../routes/index.js"></script>
+        <button class="login-btn" onclick="login()">LOGIN
+            <script>
+                function login(){
+                    fetch('https://api-backend-of-my-app.onrender.com/api/home').then(response=>{
+                        console.log(response.json());
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                }
+            </script>
+        </button>
+        <button class="login-btn">REGISTER</button>
+    </div>
+</div>
+
+<style>
+    .login-block {
+    display: flex;
+    background-color: #076E67;
+    justify-content: center;
+    align-items: center;
+   
+    position: absolute;
+    width: 80vh;
+    height: 80vh;
+    margin: 10vh;
+    margin-right: 40vh;
+    margin-left: 40vh;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 4vh;
+    flex-direction: column;
+}
+
+.login-btn {
+    border-color: #35F8F2;
+    margin: 5vh;
+    padding: 2vh;
+    position: relative;
+    background-color: #076E67;
+    font-size: 3vh;
+    border-radius: 15px;
+    color: white;
+}
+
+.input-div{
+    width:60vh;
+    height:45vh;
+    display:flex;
+    flex-direction:column;
+    
+}
+.input-feild {
+    display: flex;
+    justify-content: space-between;
+   margin:1.5vh;
+    margin-left: 5vh;
+   font-size:3vh;
+}
+
+.textbox{
+    width:35vh;
+    height :4vh;
+}
+
+#errorMessage{
+    color:red;
+}
+</style>
+
