@@ -1,4 +1,4 @@
-
+<div class="login">
 <div class="login-block">
     <div class="input-div">
         <div class="input-feild">
@@ -71,6 +71,7 @@
                                 mode:"same-origin"
                             }).catch(error=>console.log(error));
                             //window.location.href='./user/homePage';
+                            
                         }
                     })
                     
@@ -78,10 +79,18 @@
                 }
             </script>
         </button>
-        <button class="login-btn">REGISTER</button>
+        <button class="login-btn" onclick="register()">REGISTER<script>
+                function register(){
+                    fetch('/re',{
+                        method:'POST',
+
+                    }).catch(Error=>console.log(error));
+                    window.location.href = '/register';
+                }
+        </script></button>
     </div>
 </div>
-
+</div>
 <style>
     .login-block {
     display: flex;

@@ -7,8 +7,12 @@ router.get('/', (req,res) => {
     res.render('login');
     
 })
-router.post('/',(req,res)=>{
-    res.send('hiiii');
+router.post('/re',(req,res)=>{
+    const data = {
+        name : 'dsaasd'
+    };
+    console.log('asd');
+    res.render('register',{localStorage: data});
 })
 
 module.exports = router;

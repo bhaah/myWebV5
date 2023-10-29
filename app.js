@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 
 
 app.use('/',require('./routes/index'));
-
+app.use('/register',require('./routes/register'));
 app.use('/users',require('./routes/users'));
 
 app.use('/user',require('./routes/homePage'));
