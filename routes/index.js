@@ -12,7 +12,7 @@ router.post('/re',(req,res)=>{
         name : 'dsaasd'
     };
     console.log('asd');
-    res.render('register',{localStorage: data});
+    res.render('register');
 })
 
 module.exports = router;

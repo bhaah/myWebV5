@@ -1,14 +1,23 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/homePage', (req,res) => res.send('hiasdasd'));
-router.post('/homePage', (req,res) => {
-    //const email = req.body.email;
-   // const password = req.body.password;
-    //const username =req.body.username;
 
-    res.render('HomePage');
-
+router.get('/homePage',async (req,res) => {
+    const absoluteUrl = req.protocol + '://' + req.get('host') + '/getlogedinuser';
+    const data = await fetch(absoluteUrl,{
+        method : 'GET',
+        
+    }).then(response => {
+        console.log(response);
+        return response.json();
+    }).catch(error => console.log(error));
+    console.log(data);
+    const dataToSend = {
+        key1: 'value1',
+        key2: 'value2'
+    };
+    res.render('HomePage',{data:dataToSend});
+    
 });
 
 

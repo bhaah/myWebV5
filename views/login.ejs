@@ -60,18 +60,26 @@
                             document.getElementById('errorMessage').innerText = result.ErrorMessage;
                         }
                         else{
-                            const userData= new FormData();
-                            userData.append('email',result.ReturnValue.Email);
-                            userData.append('username',result.ReturnValue.UserName);
-                            userData.append('password',result.ReturnValue.Password);
-
-                            fetch('./user/homePage',{
+                            const userData= {
+                                email:result.ReturnValue.Email,
+                                password:result.ReturnValue.Password,
+                                username : result.ReturnValue.UserName,
+                            }
+                            console.log(userData);
+                            const jsonData = JSON.stringify(userData);
+                            console.log(jsonData);
+                            fetch('./savelogin',{
                                 method:'POST',
-                                body:userData,
-                                mode:"same-origin"
+                                body: jsonData,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
                             }).catch(error=>console.log(error));
-                            //window.location.href='./user/homePage';
                             
+                            
+                           window.location.href='./user/homePage';
+                            //localStorage.setItem('email',result.ReturnValue.Email);
+                            console.log('hi from login.ejs line 74');
                         }
                     })
                     
@@ -81,11 +89,11 @@
         </button>
         <button class="login-btn" onclick="register()">REGISTER<script>
                 function register(){
-                    fetch('/re',{
-                        method:'POST',
+                    fetch('./home',{
+                        method:'GET',
 
                     }).catch(Error=>console.log(error));
-                    window.location.href = '/register';
+                    //window.location.href = '/register';
                 }
         </script></button>
     </div>
