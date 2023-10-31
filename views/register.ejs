@@ -1,1 +1,11 @@
-<h1>Register  </h1>
+
+    <h1>REHISTER</h1>
+    <button onclick="logid()">click
+        <script>
+            function logid(){
+                fetch('../sessionid',{
+                    method:'POST'
+                }).catch(error => console.log(error));
+            }
+        </script>
+    </button>

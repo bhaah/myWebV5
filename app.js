@@ -36,14 +36,26 @@ app.post('/savelogin',(req,res)=>{
     
     console.log(req.session.email);
     console.log(store);
-    res.redirect('/user/homepage')
+    res.redirect('./user/homepage')
     console.log('.....................');
 
 });
 
-app.get('/getlogedinuser',(req,res)=>{
+app.post('/sessionid',(req,res)=>{
+    console.log('-------------------------------');
+    console.log(req.sessionID);
+    console.log('dddddddddddddddddddd');
+    console.log(session.Cookie);
+    console.log('dddddddddddddddddddd');
+    console.log(session);
+    console.log('-------------------------------');
+
+});
+
+
+app.post('/getlogedinuser',(req,res)=>{
     console.log('hi from app get');
-    console.log(req.session.email);
+    console.log(req.sessionID);
     
     console.log(store);
     const value = req.cookies;

@@ -76,8 +76,8 @@
                                 },
                             }).catch(error=>console.log(error));
                             
-                            
-                           window.location.href='./user/homePage';
+                            window.location.replace('./user/homePage');
+                           //window.location.href='./user/homePage';
                             //localStorage.setItem('email',result.ReturnValue.Email);
                             console.log('hi from login.ejs line 74');
                         }
@@ -89,11 +89,12 @@
         </button>
         <button class="login-btn" onclick="register()">REGISTER<script>
                 function register(){
-                    fetch('./home',{
-                        method:'GET',
+                    fetch('./sessionid',{
+                        method:'POST',
 
                     }).catch(Error=>console.log(error));
                     //window.location.href = '/register';
+                    window.location.replace('./register/home');
                 }
         </script></button>
     </div>

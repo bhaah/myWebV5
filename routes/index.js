@@ -1,17 +1,25 @@
 const express = require('express');
+const { session } = require('passport');
 const router = express.Router();
 
 
 
 router.get('/', (req,res) => {
-    res.render('login');
+    if(req.session.email && req.session.password){
+        res.redirect('./user/homepage');
+    }
+    else{
+        res.render('login');
+    }
+    
     
 })
-router.post('/re',(req,res)=>{
+router.get('/register',(req,res)=>{
     const data = {
         name : 'dsaasd'
     };
     console.log('asd');
+    console.log(session);
     res.render('register');
 })
 
