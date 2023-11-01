@@ -1,6 +1,12 @@
 <script>
-   
+   function logout(){
+        fetch('./logout',{
+            method:'GET'
+        });
+        window.location.replace('../');
+   }
 </script>
 <h1>Hello <%= data.username %> , this is the first website for bhaa </h1>
 <h2>the website is under development.</h2>
+<button onclick="logout()">logout</button>
 
