@@ -62,7 +62,7 @@
                                     'Content-Type': 'application/json',
                                 },
                             }).catch(error=>console.log(error));
-                            
+                            window.location.replace('./loading');
                             window.location.replace('./user/homePage');
                            //window.location.href='./user/homePage';
                             //localStorage.setItem('email',result.ReturnValue.Email);
@@ -86,7 +86,9 @@
 
                     }).catch(Error=>console.log(error));
                     //window.location.href = '/register';
+                    window.location.replace('./loading')
                     window.location.replace('./register/home');
+                    
                 }
         </script></button>
     </div>

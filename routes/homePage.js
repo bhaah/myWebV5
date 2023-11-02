@@ -13,7 +13,7 @@ router.get('/homePage',(req,res) => {
     console.log(dataToSend);
     console.log(req.sessionID);
     if(dataToSend.email && dataToSend.password)
-    res.render('HomePage',{data:dataToSend});
+        res.render('HomePage',{data:dataToSend});
     else{
         res.redirect('../');
     }
