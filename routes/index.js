@@ -3,9 +3,7 @@ const { session } = require('passport');
 const router = express.Router();
 
 
-router.get('/loading',(req,res)=>{
-    res.render('loading');
-})
+
 
 router.get('/', (req,res) => {
     if(req.session.email && req.session.password){

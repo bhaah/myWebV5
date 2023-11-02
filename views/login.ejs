@@ -1,3 +1,4 @@
+<%- include('loading.ejs') %>
 <div class="login">
 <div class="login-block">
     <div class="input-div">
@@ -75,6 +76,7 @@
                 }
                     catch{
                         document.getElementById('errorMessage').innerText = 'something went wrong , try again';
+                        stopLoading();
                     }
                     
                     
@@ -110,7 +112,7 @@
     align-items: center;
     padding-top: 5vh;
     padding-bottom: 10%;
-    position: absolute;
+    
     width:90%;
     max-width: 400px;
     
