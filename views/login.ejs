@@ -20,11 +20,12 @@
     </div>
     
     <div class="btn-div">
-        <script src="../routes/index.js"></script>
+        <script src="../loadingScribt.js"></script>
         <button class="login-btn" onclick="login()">LOGIN
             <script >
                 
                 async function login(){
+                    simulateLoading();
                     const email = document.getElementById('email').value;
                     const password = document.getElementById('password').value;
                     const formData = new FormData();
@@ -40,6 +41,7 @@
                         body: formData
                         
                     });
+                    stopLoading();
                     const data = response.json();
                     if(!response.ok) document.getElementById('errorMessage').innerText = 'something went wrong , try again'; 
                     data.then(result=>{
@@ -62,7 +64,7 @@
                                     'Content-Type': 'application/json',
                                 },
                             }).catch(error=>console.log(error));
-                            window.location.replace('./loading');
+                            
                             window.location.replace('./user/homePage');
                            //window.location.href='./user/homePage';
                             //localStorage.setItem('email',result.ReturnValue.Email);
@@ -81,17 +83,19 @@
         </button>
         <button class="login-btn" onclick="register()">REGISTER<script>
                 function register(){
+                    
                     fetch('./sessionid',{
                         method:'POST',
 
                     }).catch(Error=>console.log(error));
                     //window.location.href = '/register';
-                    window.location.replace('./loading')
+                    
                     window.location.replace('./register/home');
                     
                 }
         </script></button>
     </div>
+    
 </div>
 </div>
 <style>

@@ -1,6 +1,5 @@
-<div id="loading-overlay" class="loading-overlay">
-    <div class="loader"></div>
-</div>
+
+<script src="../loadingScribt.js"></script>
 <div class="register-window content-labels">
     <h1 class="welcome">Welcome, new friend?</h1>
     <label name="Username" class="content-labels">Username :</label>
@@ -17,6 +16,7 @@
         <button class="btn" onclick="register()">regiser</button>
         <button class="btn" onclick="back()">back to login</button>
     </div>
+    
     <h2 style="font-size: small; padding-left: 2vh; color:red;" id="errorMessage"></h2>
 </div>
 <script>
@@ -36,16 +36,16 @@
             userData.append('password',password);
             userData.append('username',username);
             const loadingEl = document.getElementById('loading-overlay');
-            loadingEl.style.display = 'flex';
+            simulateLoading();
             const response = await fetch('https://api-backend-of-my-app.onrender.com/api/User/register',{
                 method:'POST',
                 body: userData
             }).catch(error =>{
-                loadingEl.style.display = 'none';
+                stopLoading();
                 console.log(error);
                 errorMessage.innerHTML = 'something went wrong,try again later';
             });
-            loadingEl.style.display = 'none';
+            stopLoading();
             const data = response.json();
             if(data.ErrorOccured) errorMessage.innerHTML = data.ErrorMessage;
             data.then(result =>{
@@ -173,30 +173,5 @@ label {
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.25);
 }
 
-.loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-}
-
-.loader {
-    border: 4px solid rgba(0, 0, 0, 0.3);
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 </style>
