@@ -53,9 +53,7 @@ function duckEyes(){
 
 
 }
-const fullOpenedEyes = document.getElementById('loading-img-1');
-const halfOpenedEyes = document.getElementById('loading-img-2');
-const closedEyes = document.getElementById('loading-img-3');
+
 let currDuck = 0;
 let dots = 0;
 let side = true;

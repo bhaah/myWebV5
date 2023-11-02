@@ -1,0 +1,18 @@
+.welcome-duck{
+    flex: 1;
+    width: 80px;
+   
+}
+
+.welcome{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.welcome-txt{
+    flex: 1;
+   font-size: x-large;
+    
+}
