@@ -6,7 +6,21 @@
         window.location.replace('../');
    }
 </script>
-<h1>Hello <%= data.username %> , this is the first website for bhaa </h1>
-<h2>the website is under development.</h2>
-<button onclick="logout()">logout</button>
+<link rel="stylesheet" href="../homePageStyle.css">
+<div class="home-page">
+    <div class="upper-pannel">
+        <div class="img-profile">
+            <img src="../assets/defultDuck.png" class="img-profile">
+        </div>
+        <div class="rigth-label-pannel">
+            <h1 class="label-txt"><%= data.username %></h1>
+        </div>
+
+    </div>
+    <h1 style="color: white;">Hello <%= data.username %> , this is the first website for bhaa </h1>
+    
+    <h2>the website is under development.</h2>
+    <button onclick="logout()">logout</button>
+</div>
+
 
