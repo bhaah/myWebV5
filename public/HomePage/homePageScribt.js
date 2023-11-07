@@ -39,6 +39,7 @@ async function onLoad(){
 
 
 function duckSaySomething(){
+    console.log(email+' from homePageScribt');
     const btn = document.getElementById('say-something');
     btn.style.animationDirection = 'reverse';
     btn.style.animationName = 'example';
@@ -58,17 +59,25 @@ function popSpeech(){
         const speech = document.getElementById('SpeechBubble');
         speech.style.animationName = 'expand-bounce';
         speech.style.animationDuration = '1s';
-        const res=await fetch('../getRandomMessage',{
+        const dataToSend = new FormData();
+        dataToSend.append('email',email);
+        dataToSend.append('password',password);
+        //const json = JSON.stringify()
+        const dataRec= await fetch('https://api-backend-of-my-app.onrender.com/api/Home/getRandomMessage',{
             method:'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+            body : dataToSend,
+        
         }).then(response=>{
+            console.log(response);
             return response.json();
+        }).then(result=>{
+            console.log(result.ReturnValue.Content);
+            const content = result.ReturnValue.Content;
+            
+            speech.innerHTML = content;
         }).catch(error=>console.log(error));
         
         
-        speech.innerHTML = res.Content;
         setTimeout(()=>{
             const closeBtn = document.getElementById('closing_duck');
             closeBtn.style.display = 'inline';
