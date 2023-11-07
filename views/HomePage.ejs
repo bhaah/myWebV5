@@ -13,7 +13,9 @@
 <link rel="stylesheet" href="../HomePage/homePageStyle.css">
 <script src="../HomePage/homePageScribt.js"></script>
 <script>window.onload = onLoad;</script>
+
 <div class="home-page">
+    
     <div class="upper-pannel shadow-lg ">
         <div class="img-profile">
             <img id="avatar-profile-img" class="img-profile">
@@ -34,15 +36,14 @@
         </div>
 
     </div>
-    <div class="position-relative row justify-content-center">
-        <button class="home-btn option-btn">Calendar</button>
-        <button class="home-btn option-btn">Boards</button>
-        <button class="home-btn option-btn">Profile</button>
+    <div class="position-relative row justify-content-center" id="div_home_btns">
         <div class="home-article">
-            <p class="home-article-p">
-                Empowering you to organize tasks, set goals, and track progress efficiently. This platform is designed for a user-friendly experience in managing your time effectively.
-            </p>
+            <p class="home-article-p" id="article_txt_id"></p>
         </div>
+        <button class="home-btn option-btn" onclick="animateBtn(id)" id="calendar_btn_id">Calendar</button>
+        <button class="home-btn option-btn" onclick="animateBtn(id)" id="boards_btn_id">Boards</button>
+        <button class="home-btn option-btn" onclick="animateBtn(id)" id="profile_btn_id">Profile</button>
+        
     </div>
     <div class="position-absolute bottom-0 end-0">
         <img src="../assets/HomePage/speakingDuck.png" class="img-speaking-duck" id="speaking_duck">

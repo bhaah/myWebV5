@@ -34,6 +34,7 @@ async function onLoad(){
     email=userData.email;
     password=userData.password;
     userName = userData.username;
+    setArticle();
     
 }
 
@@ -131,4 +132,97 @@ function closeDuck(){
         },1000);
     },500);
     
+}
+
+let articleNumber = 0;
+
+const a = 'Welcome';
+const b = 'stay organized to be productive';
+const c = 'effortlessly manage your tasks';
+const d = 'set deadlines';
+const e = 'Divide difficult tasks into easy ones';
+const f = 'with this website/App.';
+
+function setArticle(){
+    const pArticle = document.getElementById('article_txt_id');
+    
+    
+    
+    pArticle.style.overflow = 'hidden';
+    pArticle.style.width ='0%';
+    let timeDelay = 0;
+    switch(articleNumber){
+        case 0:
+            setArticleAnimation('0.5s',a,'25px');
+            timeDelay=2000;
+            break;
+        case 1:
+            setArticleAnimation('1s',b,'20px');
+            timeDelay=1700;
+            break;
+        case 2:
+            setArticleAnimation('1s',c,'20px');
+            timeDelay=1700;
+            break;
+        case 3:
+            setArticleAnimation('0.5s',d,'20px');
+            timeDelay=1500;
+            break;
+        case 4:
+            setArticleAnimation('1s',e,'19px');
+            timeDelay=1700;
+            break;
+        case 5:
+            setArticleAnimation('1s',f,'20px');
+            timeDelay=2000;
+            break;
+        default:
+            break;    
+    }
+    articleNumber++;
+    articleNumber = (articleNumber > 5) ? 0 : articleNumber;
+    
+
+    setTimeout(setArticle,timeDelay);
+
+    
+
+
+
+}
+
+function setArticleAnimation(dur,innerHTML,font){
+    const pArticle = document.getElementById('article_txt_id');
+    
+    pArticle.style.fontSize = font;
+    pArticle.style.animationDuration = dur;
+    pArticle.classList.remove('home-article-p');
+    void pArticle.offsetWidth;
+    
+    pArticle.innerHTML=innerHTML;
+    pArticle.classList.add('home-article-p');
+}
+
+
+function animateBtn(id){
+    const btn = document.getElementById(id);
+    btn.classList.add('animate-btn');
+    setTimeout(()=>{
+        btn.classList.remove('animate-btn');
+    },200);
+
+    switch(id){
+        case 'profile_btn_id':
+            slideBtns();
+            break;
+        default:
+            break;
+    }
+
+}
+
+
+function slideBtns(){
+    const div = document.getElementById('div_home_btns');
+    div.classList.add('sliding-btns');
 }
