@@ -58,12 +58,15 @@
                             document.getElementById('errorMessage').innerText = 'something went wrong , try again';
                         }
                         else{
+                            console.log(result.ReturnValue.Profile);
                             const userData= {
                                 email:result.ReturnValue.Email,
                                 password:result.ReturnValue.Password,
                                 username : result.ReturnValue.UserName,
-                                Profile : result.ReturnValue.Profile
+                                coins : (result.ReturnValue.Profile).Coins,
+                                currAvatar :(result.ReturnValue.Profile).CurrentAvatar
                             }
+                            //const c = (result.ReturnValue.Profile).json().Coins
                             console.log(userData);
                             const jsonData = JSON.stringify(userData);
                             console.log(jsonData);

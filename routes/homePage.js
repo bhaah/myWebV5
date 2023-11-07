@@ -8,7 +8,9 @@ router.get('/homePage',(req,res) => {
     const dataToSend = {
         username: req.session.username,
         email: req.session.email,
-        password: req.session.password 
+        password: req.session.password, 
+        coins: req.session.coins,
+        currAvatar: req.session.currAvatar
     };
     console.log(dataToSend);
     console.log(req.sessionID);

@@ -56,6 +56,8 @@
                                 email:result.ReturnValue.Email,
                                 password:result.ReturnValue.Password,
                                 username : result.ReturnValue.UserName,
+                                coins : (result.ReturnValue.Profile).Coins,
+                                currAvatar :(result.ReturnValue.Profile).CurrentAvatar
                             }
                     const jsonData = JSON.stringify(user);
                     console.log(jsonData);

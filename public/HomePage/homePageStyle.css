@@ -1,0 +1,249 @@
+body{
+    background-image: url('../assets/bg.png');
+    background-size: cover;
+    background-repeat:no-repeat ;
+    background-position:70% 30%; 
+    height: 100vh;
+}
+
+
+.upper-pannel{
+    position: sticky;
+    height: 100px;
+    background-color: rgb(14, 19, 57);
+    width: 105%;
+    display: flex;
+    padding: 5px;
+}
+body{
+    margin: 0;
+}
+.img-profile{
+    display: flex;
+    align-items: center;
+    max-width: 80px;
+    margin-left: 5px;
+
+    margin-right: 4px;
+}
+.rigth-label-panne{
+    background-color: blue;
+    display: flexbox;
+    flex-direction: column;
+    padding-left: 20px;
+}
+.label-txt{
+    display: flex;
+    margin: 2px;
+    margin-left: 5px;
+    color:white;
+    font-size: x-large;
+}
+
+.coins-amount{
+    position: relative;
+    font-size: x-large;
+    color:wheat ;
+    padding: 7px;
+}
+
+.panel-button{
+    margin: 10px;
+    right: 0%;
+    display: block;
+}
+
+.duck-btn{
+    
+    margin: 20px;
+    
+    position: relative;
+  top:0px;
+  animation-duration: 0.5s;
+  animation-direction: reverse; 
+}
+
+@keyframes example {
+    0%   {background-color:red; left:0px; top:100px;}
+  
+    100%  {background-color:blue; left:0px; top:0px;}
+   
+}
+
+.img-speaking-duck{
+    position: relative;
+    width: 110px;
+
+    animation-duration: 1s;
+    animation-direction: reverse;
+    display: none;
+}
+
+@keyframes duck-pop{
+    0% {top:0px;}
+    100% {top:150px;}
+}
+
+@keyframes expand-bounce {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  #SpeechBubble {
+    position: absolute;
+    transform-origin: bottom right;
+    text-align:inherit;
+    background-color: #5a5a5a;
+    color: white;
+    border-radius: 10px;
+    width: auto;
+    max-width: 70%;
+    padding: 10px;
+    right: 85px;
+    bottom: 160px;
+    transform: scale(0);
+    animation-fill-mode: forwards;
+    display: inline-block;
+  }
+  /* We need to add a tail to the speech bubble. This is done using
+  the ::before pseudo-element. The tail's size is controlled by 
+  its borders. The right and bottom borders are given a transparent
+  color so that the tail still retains its shape while giving the
+  desired look */
+  #SpeechBubble::before {
+    content: "";
+    display: block;
+    width: 0;
+    position: absolute;
+    bottom: -20px;
+    right: 0px;
+    border-style: solid;
+    border-width: 15px;
+    border-color: #5a5a5a transparent transparent #5a5a5a;
+    transform: rotate(61deg);
+  }
+
+  @keyframes shrink {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  .home-btn{
+    background-color: rgb(24, 24, 250);
+    color: white;
+    padding: 7px;
+    border-radius: 5px;
+    border :0px;
+  }
+
+  #closing_duck{
+    margin: 20px;
+    position: absolute;
+    right: 120%;
+    height: fit-content;
+    display: none;
+  }
+
+  .option-btn{
+    background-color: rgba(24, 24, 250, 0.7);
+    border-color: blue;
+    position: relative;
+    width: 80%;
+    margin: 20px;
+    text-align: center;
+    font-size: 30px;
+    border: 3px;
+  font-weight: 300;
+    animation: lights 5s 750ms linear infinite;
+  }
+
+  .information{
+    padding: 4px;
+    color: hsl(230, 40%, 80%);
+    height: auto;
+    width: 105%;
+    background-color: rgb(30, 3, 41);
+    position: absolute;
+    bottom: -310px;
+    padding-bottom: 15px;
+  }
+
+  .home-article{
+    
+    width: 80%;
+    background-color: rgba(38, 38, 73, 0.5);
+    color: aqua;
+    font-size: 25px;
+    
+  }
+
+  .home-article-p{
+    overflow: hidden;
+    white-space: nowrap;
+    animation: 
+      typing 5s steps(50, end) forwards;
+  }
+
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+
+  @keyframes lights {
+    0% {
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+    
+    30% { 
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        -0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    40% { 
+      color: hsl(230, 100%, 95%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 90%, 0.5),
+        -0.25em -0.125em 0.125em hsla(40, 100%, 60%, 0.2),
+        0.25em 0.125em 0.125em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    70% {
+      color: hsl(230, 80%, 90%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.5),
+        0 0 0.125em hsla(320, 100%, 60%, 0.5),
+        0.5em -0.125em 0.25em hsla(40, 100%, 60%, 0.2),
+        -0.5em 0.125em 0.25em hsla(200, 100%, 60%, 0.4);
+    }
+    
+    100% {
+      color: hsl(230, 40%, 80%);
+      text-shadow:
+        0 0 1em hsla(320, 100%, 50%, 0.2),
+        0 0 0.125em hsla(320, 100%, 60%, 0.3),
+        1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+        -1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    }
+    
+  }
