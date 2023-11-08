@@ -214,6 +214,7 @@ function animateBtn(id){
     switch(id){
         case 'profile_btn_id':
             slideBtns();
+            setTimeout(slidePanelDown,200);
             break;
         default:
             break;
@@ -225,4 +226,17 @@ function animateBtn(id){
 function slideBtns(){
     const div = document.getElementById('div_home_btns');
     div.classList.add('sliding-btns');
+}
+
+function slidePanelDown(){
+    const panel = document.getElementById('upper_pannel');
+    panel.style.animationName = 'panel-slide-down';
+    const imgProfile= document.getElementById('avatar-profile-img');
+    imgProfile.style.animationName = 'expand-img-profile';
+    const userInfDiv = document.getElementById('div_user_inf');
+    userInfDiv.style.display = 'none';
+    const divImg=document.getElementById('div_img_profile');
+    const divPageInfo = document.getElementById('profile_page');
+    divPageInfo.style.display = 'flex';
+    //divImg.style.animationName = 'expand-img-profile';
 }

@@ -14,17 +14,39 @@ body{
     width: 105%;
     display: flex;
     padding: 5px;
+    animation: 2s forwards;
 }
+
+
+
 body{
     margin: 0;
 }
 .img-profile{
     display: flex;
     align-items: center;
+    justify-content: center;
+
     max-width: 80px;
     margin-left: 5px;
-
+    animation:forwards 2s ;
     margin-right: 4px;
+}
+
+@keyframes expand-img-profile {
+    0% {max-width: 80px;
+        position: relative;
+        left: 0;
+        top: 0;
+    }
+    100% {
+        position: relative;
+        top: 20px;
+        left: 120px;
+        max-width: 230px;
+        margin: 50px;
+        margin-top: 30px;
+    }
 }
 .rigth-label-panne{
     background-color: blue;
@@ -277,4 +299,45 @@ body{
 @keyframes btns-left-slide {
     0% {left: 0;}
     100% {left: -400px;}
+}
+
+.sliding-panel-animate{
+    animation: panel-slide-down 2s forwards;
+}
+
+@keyframes panel-slide-down {
+    0% {height: 100px;}
+    1%{flex-direction: column;}
+    100% {
+        height: 615px;
+        flex-direction: column;
+        
+    }
+}
+
+
+.profile-page{
+    background-color: brown;
+    height: auto;
+    width: auto;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.profile-page-upper-part{
+    display: flex;
+    position: relative;
+    width:100%;
+    height: auto;
+    
+    justify-content: center;
+    flex-direction: column;
+}
+
+.profile-page-down-part{
+    position: relative;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(28, 39, 39);
 }

@@ -16,11 +16,11 @@
 
 <div class="home-page">
     
-    <div class="upper-pannel shadow-lg ">
-        <div class="img-profile">
+    <div class="upper-pannel shadow-lg " id="upper_pannel">
+        <div class="img-profile" id="div_img_profile">
             <img id="avatar-profile-img" class="img-profile">
         </div>
-        <div class="rigth-label-pannel" >
+        <div class="rigth-label-pannel" id="div_user_inf">
             <div style="display: flex;">
                 <h1 class="label-txt"><%= data.username %></h1>
                 
@@ -34,7 +34,20 @@
         <div class="panel-button position-absolute top-0 ">
             <button onclick="logout()" class="btn btn-danger">logout</button>
         </div>
-
+        <div class="profile-page" id="profile_page">
+            <div class="profile-page-upper-part">
+                <div style="display: flex;justify-content: center;">
+                    <h1 class="label-txt"><%= data.username %></h1>
+                    
+                </div>
+                <div style="display: flex;justify-content: center;">
+                    <h2 class="coins-amount"><%= data.coins %>
+                        <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">
+                    </h2>
+                </div>
+            </div>
+            <div class="profile-page-down-part"></div>
+        </div>
     </div>
     <div class="position-relative row justify-content-center" id="div_home_btns">
         <div class="home-article">
