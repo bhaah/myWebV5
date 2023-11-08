@@ -31,6 +31,7 @@
                 </h2>
             </div>
         </div>
+
         <div class="panel-button position-absolute top-0 ">
             <button onclick="logout()" class="btn btn-danger">logout</button>
         </div>
@@ -46,7 +47,26 @@
                     </h2>
                 </div>
             </div>
-            <div class="profile-page-down-part"></div>
+            <div class="profile-page-down-part">
+                <div id="owned_avatars">
+                    <p>Owned:</p> 
+                    <div class="owned-div">
+                        <ul class="list-avatars" id="list_avatars"> 
+                            <li class="avatar-item">
+                                <img src="../assets/profileAvatars/defultDuck.png" class="unselected-avatar-img">
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <div class="conrol-avatars-btns">
+                    <button>left</button>
+                    <button>right</button>
+                </div>
+                <div id="store_avatars">
+
+                </div>
+            </div>
         </div>
     </div>
     <div class="position-relative row justify-content-center" id="div_home_btns">

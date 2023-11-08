@@ -1,6 +1,10 @@
 let email ='';
 let password ='';
 let userName ='';
+let _currAvatar='';
+let _ownedAvatars = [];
+
+
 async function onLoad(){
     const avatarImage = document.getElementById('avatar-profile-img');
     
@@ -17,11 +21,15 @@ async function onLoad(){
     console.log(data.currAvatar);
     if(data.currAvatar === '' || data.currAvatar === undefined || data.currAvatar===null){
         avatarImage.src = `../assets/profileAvatars/defultDuck.png`;
+        _currAvatar='defultDuck';
+
     }
     else{
         avatarImage.src = `../assets/profileAvatars/${data.currAvatar}.png`;
+        _currAvatar=data.currAvatar;
     }
-
+    _ownedAvatars=data.ownedAvatars;
+    _ownedAvatars=_ownedAvatars.concat('defultDuck');
 
     const userData =await fetch('../getlogedinuser',{
         method:'POST',
@@ -238,5 +246,29 @@ function slidePanelDown(){
     const divImg=document.getElementById('div_img_profile');
     const divPageInfo = document.getElementById('profile_page');
     divPageInfo.style.display = 'flex';
-    //divImg.style.animationName = 'expand-img-profile';
+    setTimeout(getOwnedAvatars,200);
+}
+
+
+const selectedAvatar =(avatar)=>{ 
+    return `<li class="avatar-item">
+        <img src="../assets/profileAvatars/${avatar}.png" class="selected-avatar-img" id="_${avatar}">
+    </li>`;
+};
+
+const unselectedAvatar =(avatar)=>{ 
+    return `<li class="avatar-item">
+        <img src="../assets/profileAvatars/${avatar}.png" class="unselected-avatar-img" id="_${avatar}">
+    </li>`;
+};
+
+let ownedSelected = 0;
+function getOwnedAvatars(){
+    const ul = document.getElementById('list_avatars');
+
+    ul.innerHTML += selectedAvatar(_ownedAvatars[0]);
+
+    for(let i=1;i<_ownedAvatars.length;i++){
+        ul.innerHTML += unselectedAvatar(_ownedAvatars[i]);
+    }
 }

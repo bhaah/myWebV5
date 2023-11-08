@@ -64,7 +64,8 @@
                                 password:result.ReturnValue.Password,
                                 username : result.ReturnValue.UserName,
                                 coins : (result.ReturnValue.Profile).Coins,
-                                currAvatar :(result.ReturnValue.Profile).CurrentAvatar
+                                currAvatar :(result.ReturnValue.Profile).CurrentAvatar,
+                                ownedAvatar : (result.ReturnValue.Profile).OwnedAvatars
                             }
                             //const c = (result.ReturnValue.Profile).json().Coins
                             console.log(userData);

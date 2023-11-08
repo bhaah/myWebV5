@@ -34,6 +34,7 @@ app.post('/savelogin',(req,res)=>{
     req.session.username=req.body.username;
     req.session.coins = req.body.coins;
     req.session.currAvatar = req.body.currAvatar;
+    req.session.ownedAvatars = req.body.ownedAvatars;
     req.session.save();
     
     console.log(req.session.email);

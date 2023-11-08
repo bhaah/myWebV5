@@ -317,7 +317,7 @@ body{
 
 
 .profile-page{
-    background-color: brown;
+    
     height: auto;
     width: auto;
     display: none;
@@ -340,4 +340,30 @@ body{
     height: 100px;
     width: 100%;
     background-color: rgb(28, 39, 39);
+    color: white;
+    
+}
+
+.list-avatars{
+    list-style-type: none; 
+    overflow: hidden;
+    display: flex;
+    padding: 0;
+}
+
+.avatar-item{
+    display: inline;
+    margin: 10px;
+    width: 100px;
+}
+.owned-div{
+    display: inline;
+}
+
+.unselected-avatar-img{
+    height: 80px;
+}
+
+.selected-avatar-img{
+    height: 100px;
 }
