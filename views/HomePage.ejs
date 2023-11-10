@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 <script>
    function logout(){
         fetch('./logout',{
@@ -49,19 +51,25 @@
             </div>
             <div class="profile-page-down-part">
                 <div id="owned_avatars">
-                    <p>Owned:</p> 
+                    <div style="display: inline-flex;"><p style="font-size: 25px;" id="title_avatars_list"></p><button onclick="replaceStoreOwned()" style="right: 15px; position: absolute; margin-top: 0;" class="profile-btns" id="store_owned_btn"></button></div>
                     <div class="owned-div">
                         <ul class="list-avatars" id="list_avatars"> 
                             <li class="avatar-item">
-                                <img src="../assets/profileAvatars/defultDuck.png" class="unselected-avatar-img">
+                                <div style="width: 120px;height: 80px;"></div>
                             </li>
                             
                         </ul>
                     </div>
                 </div>
-                <div class="conrol-avatars-btns">
-                    <button>left</button>
-                    <button>right</button>
+                <div class="control-avatars-btns" id="control_btns">
+                    <button style="left: 100px;" class="profile-btns" onclick="slideList(false)" style="bottom: 0px;" class="bi bi-arrow-left">
+                        <i class="fa fa-arrow-left" aria-hidden="true" style="width: 10px;"></i>
+                    </button>
+              
+                    <button class="profile-btns" onclick="setSelectedAvatar()">set</button>
+                    <button class="profile-btns" onclick="" style="display: none;">buy</button>
+                    <button style="right: 100px;" class="profile-btns" onclick="slideList(true)"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <div id="store_avatars">
 

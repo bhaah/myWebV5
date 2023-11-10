@@ -60,7 +60,8 @@ app.post('/userAvatar',(req,res)=>{
     console.log(req.sessionID);
     const dataToSend = {
         currAvatar : req.session.currAvatar,
-        coins : req.session.coins
+        coins : req.session.coins,
+        ownedAvatars : req.session.ownedAvatars
     }
     const jsonData = JSON.stringify(dataToSend);
     res.send(jsonData);
@@ -114,6 +115,22 @@ app.post('/getRandomMessage',async (req,res)=>{
     
     
 })
+
+app.post('/updateProfile', (req,res)=>{
+    console.log('hi from post update profile');
+    const type = req.body.type;
+    switch(type){
+        case 'currAvatar':
+            req.session.currAvatar = req.body.currAvatar;
+            break;
+        default :
+            break;
+    }
+    req.session.save();
+    console.log('bi from post update profile');
+    
+})
+
 
 app.use('/',require('./routes/index'));
 app.use('/register',require('./routes/register'));

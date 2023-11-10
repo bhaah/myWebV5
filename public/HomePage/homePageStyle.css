@@ -177,6 +177,10 @@ body{
     display: none;
   }
 
+  .home-page{
+    overflow: hidden;
+  }
+
   .option-btn{
     background-color: rgba(24, 24, 250, 0.7);
     border-color: blue;
@@ -194,7 +198,7 @@ body{
     padding: 4px;
     color: hsl(230, 40%, 80%);
     height: auto;
-    width: 105%;
+    width: 100%;
     background-color: rgb(30, 3, 41);
     position: absolute;
     bottom: -310px;
@@ -309,7 +313,7 @@ body{
     0% {height: 100px;}
     1%{flex-direction: column;}
     100% {
-        height: 615px;
+        height: 700px;
         flex-direction: column;
         
     }
@@ -339,7 +343,7 @@ body{
     position: relative;
     height: 100px;
     width: 100%;
-    background-color: rgb(28, 39, 39);
+   
     color: white;
     
 }
@@ -349,21 +353,53 @@ body{
     overflow: hidden;
     display: flex;
     padding: 0;
+    flex-wrap: nowrap;
+    position: absolute;
+    animation: 0.19s ;
 }
+
+
 
 .avatar-item{
     display: inline;
     margin: 10px;
-    width: 100px;
+    width: fit-content;
 }
 .owned-div{
     display: inline;
 }
 
 .unselected-avatar-img{
-    height: 80px;
+  height: 80px;
+  animation: 0.19s forwards;
+  animation-direction: reverse;
 }
 
 .selected-avatar-img{
-    height: 100px;
+  height: 100px;
+  animation: 0.19s forwards;
+  
+}
+
+@keyframes selectorChange {
+  0% {height: 80px;}
+  100% {height: 100px;}
+}
+
+.control-avatars-btns{
+  bottom: -120px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  display:none;
+  margin-top: 20px;
+}
+
+.profile-btns{
+  margin-top: 30px;
+  background-color: transparent;
+  color: white;
+  border: 0;
+  font-size: 25px;
+  position: absolute;
 }
