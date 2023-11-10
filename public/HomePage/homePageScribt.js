@@ -5,6 +5,7 @@ let password ='';
 let userName ='';
 let _currAvatar='';
 let _ownedAvatars = [];
+let _coins = 0;
 
 
 async function onLoad(){
@@ -19,6 +20,7 @@ async function onLoad(){
         console.log(response);
         return response.json();
     }).catch(error=>console.log(error));
+    _coins = data.coins;
     console.log(data);
     console.log(data.currAvatar);
     if(data.currAvatar === '' || data.currAvatar === undefined || data.currAvatar===null){
@@ -261,25 +263,28 @@ function slidePanelDown(){
 }
 
 
-const selectedAvatar =(avatar)=>{ 
-    return `<li class="avatar-item">
-        <img src="../assets/profileAvatars/${avatar}.png" class="selected-avatar-img" id="_${avatar}">
+
+const addAvatarItem = (avatar,un,p) =>{
+    return `<li class="avatar-item" >
+        ${p}
+        <img src="../assets/profileAvatars/${avatar}.png" class="${un}selected-avatar-img" id="_${avatar}">
     </li>`;
 };
 
-const unselectedAvatar =(avatar)=>{ 
-    return `<li class="avatar-item" >
-        <img src="../assets/profileAvatars/${avatar}.png" class="unselected-avatar-img" id="_${avatar}">
-    </li>`;
-};
+
+const getP = (i,list) =>{
+    return ownedStoreList ? `<p style="display: flex; justify-content:center; margin-bottom:0px;">${avatarSales[list[i]]} <img src="../assets/free-coin-icon-794-thumb (1).png" style="height: 24px"></p>` : '' ;
+}
 
 let ownedSelected = 0;
 function getAvatars(list){
     const ul = restartList();
-    ul.innerHTML += selectedAvatar(list[0]);
+    let p = getP(0,list);
+    ul.innerHTML += addAvatarItem(list[0],'',p);
 
     for(let i=1;i<list.length;i++){
-        ul.innerHTML += unselectedAvatar(list[i]);
+        p = getP(i,list);
+        ul.innerHTML +=addAvatarItem(list[i],'un',p);
     }
 }
 
@@ -299,6 +304,8 @@ function replaceStoreOwned(){
 }
 
 function getStoreAvatars(){
+    document.getElementById('set_selected_avatar_btn').style.display ='none';
+    document.getElementById('buy_selected_avatar_btn').style.display ='flex';
     const tittle = document.getElementById('title_avatars_list');
     tittle.innerHTML = 'Store:';
     const btn = document.getElementById('store_owned_btn');
@@ -310,6 +317,8 @@ function getOwnedAvatars(){
     tittle.innerHTML = 'Owned:';
     const btn = document.getElementById('store_owned_btn');
     btn.innerHTML = `<i class="fa-solid fa-store"></i> store`;
+    document.getElementById('set_selected_avatar_btn').style.display ='flex';
+    document.getElementById('buy_selected_avatar_btn').style.display ='none';
     getAvatars(_ownedAvatars);
 
 }
@@ -322,7 +331,7 @@ function restartList(){
 return ul;
 }
 
-let ownedStoreList = false;
+let ownedStoreList = false; // false - owned page , true - store page 
 function slideList(rigth){
     if(ownedStoreList) storeSelector=List(rigth,avatarStore,storeSelector);
     else ownedSelected = List(rigth,_ownedAvatars,ownedSelected);
@@ -344,6 +353,8 @@ function List(Right,listAvatar,selector){
 }
 
 function changeSelector(selectedA,listAvatar,selecor){
+    lockBtn('left_list_btn',true);
+    lockBtn('right_list_btn',true);
     const nextA = document.getElementById(`_${listAvatar[selecor]}`);
     console.log(selectedA);
     selectedA.classList.remove('selected-avatar-img');
@@ -362,7 +373,8 @@ function changeSelector(selectedA,listAvatar,selecor){
         nextA.style.animationName = '';
         selectedA.style.animationName = '';
         list.style.animationName = '';
-        
+        lockBtn('left_list_btn',false);
+        lockBtn('right_list_btn',false);
         list.style.left = `${leftpx}px`;
     },190);
 }
@@ -440,4 +452,25 @@ async function loadStore(){
     }).catch(error=>console.log(error));
     console.log(avatarSales);
     console.log(avatarStore);
+}
+
+
+function buySelectedAvatar(){
+    
+    const sale = avatarSales[avatarStore[storeSelector]];
+    if(sale<_coins){
+        const coinsAmount = document.getElementById('coins_amount');
+        coinsAmount.classList.add('bad-buy-click');
+        setTimeout(()=>{
+            coinsAmount.classList.remove('bad-buy-click');
+        },500);
+    }
+    else{
+        congratulations();
+        
+    }
+}
+
+function lockBtn(id,con){
+    document.getElementById(id).disabled = con;
 }

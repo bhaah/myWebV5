@@ -13,11 +13,13 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <link rel="stylesheet" href="../HomePage/homePageStyle.css">
-<script src="../HomePage/homePageScribt.js"></script>
+<link rel="stylesheet" href="../HomePage/congs.css">
+<script src="../HomePage/homePageScribt.js" ></script>
+<script src="../HomePage/congs.js" ></script>
 <script>window.onload = onLoad;</script>
 
 <div class="home-page">
-    
+
     <div class="upper-pannel shadow-lg " id="upper_pannel">
         <div class="img-profile" id="div_img_profile">
             <img id="avatar-profile-img" class="img-profile">
@@ -44,7 +46,7 @@
                     
                 </div>
                 <div style="display: flex;justify-content: center;">
-                    <h2 class="coins-amount"><%= data.coins %>
+                    <h2 class="coins-amount" id="coins_amount"><%= data.coins %>
                         <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">
                     </h2>
                 </div>
@@ -62,13 +64,14 @@
                     </div>
                 </div>
                 <div class="control-avatars-btns" id="control_btns">
-                    <button style="left: 100px;" class="profile-btns" onclick="slideList(false)" style="bottom: 0px;" class="bi bi-arrow-left">
+                    <div id="cong_buy_div" ></div>
+                    <button id="left_list_btn" style="left: 100px;" class="profile-btns" onclick="slideList(false)" style="bottom: 0px;" class="bi bi-arrow-left">
                         <i class="fa fa-arrow-left" aria-hidden="true" style="width: 10px;"></i>
                     </button>
               
-                    <button class="profile-btns" onclick="setSelectedAvatar()">set</button>
-                    <button class="profile-btns" onclick="" style="display: none;">buy</button>
-                    <button style="right: 100px;" class="profile-btns" onclick="slideList(true)"><i class="fa fa-arrow-right" aria-hidden="true"></i>
+                    <button  class="profile-btns" onclick="setSelectedAvatar()" id="set_selected_avatar_btn">set</button>
+                    <button class="profile-btns" onclick="buySelectedAvatar()" id="buy_selected_avatar_btn" style="display: none;">buy</button>
+                    <button  id="right_list_btn"  style="right: 100px;" class="profile-btns" onclick="slideList(true)"><i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </button>
                 </div>
                 <div id="store_avatars">

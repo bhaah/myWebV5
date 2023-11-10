@@ -1,0 +1,33 @@
+.drdoshe{
+    position: fixed;
+    width: 5px;
+    height: 10px;
+    top:0;
+    background-color: chartreuse;
+}
+
+
+.drdoshe-down{
+    animation:drdoshe-down-a 10s forwards;
+    
+}
+
+@keyframes drdoshe-down-a {
+    0% {top:0 ;}
+    100% {top: 100%;}
+}
+
+.dardoshe-1{
+    background-color: chartreuse;
+    animation: infinite animate-1-d 1s;
+
+}
+
+
+@keyframes animate-1-d {
+    0% {width: 5px; height: 10px;transform: rotate(0deg); }
+    25% {width: 0px; background-color: cornflowerblue;}
+    50% {width: 5px; transform: rotate(180deg); background-color: cornflowerblue;}
+    75% {width: 0;background-color: chartreuse;}
+    100% {width: 5px; transform:rotate(360deg) ;}
+}
