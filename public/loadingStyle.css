@@ -9,6 +9,7 @@
     justify-content: left;
     align-items: center;
     padding-left: 30px;
+    z-index: 3;
 }
 
 .loader-img{

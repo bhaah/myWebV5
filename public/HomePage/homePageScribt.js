@@ -35,7 +35,7 @@ async function onLoad(){
     _ownedAvatars=data.ownedAvatars;
     console.log(data.ownedAvatars);
     console.log(typeof _ownedAvatars);
-    _ownedAvatars.push("defultDuck");
+    if(_ownedAvatars.indexOf("defultDuck") === -1) _ownedAvatars.push("defultDuck");
 
     const userData =await fetch('../getlogedinuser',{
         method:'POST',
@@ -455,22 +455,68 @@ async function loadStore(){
 }
 
 
-function buySelectedAvatar(){
+async function buySelectedAvatar(){
     
     const sale = avatarSales[avatarStore[storeSelector]];
-    if(sale<_coins){
-        const coinsAmount = document.getElementById('coins_amount');
-        coinsAmount.classList.add('bad-buy-click');
-        setTimeout(()=>{
-            coinsAmount.classList.remove('bad-buy-click');
-        },500);
+    if(sale>_coins){
+        badBuy();
     }
     else{
-        congratulations();
-        
+        const reqData = new FormData();
+        reqData.append('email',email);
+        reqData.append('password',password);
+        reqData.append('avatar',avatarStore[storeSelector]);
+        simulateLoading();
+        const buyRequestResponse = await fetch('https://api-backend-of-my-app.onrender.com/api/Home/purchase',{
+            method:'POST',
+            body : reqData
+        }).then(response=>{
+            return response.json();
+        }).then(result=>{
+            return result.ReturnValue;
+        }).catch(error=>console.log(error));
+        if(buyRequestResponse){
+            stopLoading();
+            congratulations(avatarStore[storeSelector]);
+            
+            delete avatarSales[avatarStore[storeSelector]];
+            _ownedAvatars.push(avatarStore[storeSelector]);
+            avatarStore = avatarStore.filter(item => item !== avatarStore);
+
+            const toSend = {
+                ownedAvatars : _ownedAvatars,
+                coins : _coins,
+                type : 'purchaseDone'
+
+            }
+            const jsonData = JSON.stringify(toSend);
+            await fetch('../updateProfile',{
+                method : 'POST',
+                body : jsonData,
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            }).then(response=>{
+                return response.json();s
+            }).catch(error => console.log(error));
+
+        }
+        else{
+            stopLoading();
+            badBuy();
+        }
     }
+}
+
+function badBuy(){
+    const coinsAmount = document.getElementById('coins_amount');
+    coinsAmount.classList.add('bad-buy-click');
+    setTimeout(()=>{
+        coinsAmount.classList.remove('bad-buy-click');
+    },500);
 }
 
 function lockBtn(id,con){
     document.getElementById(id).disabled = con;
 }
+

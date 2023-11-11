@@ -123,6 +123,9 @@ app.post('/updateProfile', (req,res)=>{
         case 'currAvatar':
             req.session.currAvatar = req.body.currAvatar;
             break;
+        case 'purchaseDone':
+            req.session.ownedAvatars = req.body.ownedAvatars;
+            req.session.coins = req.body.coins;
         default :
             break;
     }
