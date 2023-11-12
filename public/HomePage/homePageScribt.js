@@ -265,7 +265,7 @@ function slidePanelDown(){
 
 
 const addAvatarItem = (avatar,un,p) =>{
-    return `<li class="avatar-item" >
+    return `<li class="avatar-item" id="li_${avatar}">
         ${p}
         <img src="../assets/profileAvatars/${avatar}.png" class="${un}selected-avatar-img" id="_${avatar}">
     </li>`;
@@ -477,12 +477,17 @@ async function buySelectedAvatar(){
         }).catch(error=>console.log(error));
         if(buyRequestResponse){
             stopLoading();
+            document.getElementById(`li_${avatarStore[storeSelector]}`).remove();
             congratulations(avatarStore[storeSelector]);
-            
+            _coins -= avatarSales[avatarStore[storeSelector]];
+            document.getElementById('coins_amount_a').innerHTML =`${_coins} <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">`;
+            document.getElementById('coins_amount_b').innerHTML = `${_coins} <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">`;
             delete avatarSales[avatarStore[storeSelector]];
             _ownedAvatars.push(avatarStore[storeSelector]);
-            avatarStore = avatarStore.filter(item => item !== avatarStore);
-
+            if(document.getElementById(`li_${avatarStore[storeSelector]}`)!==null) document.getElementById(`li_${avatarStore[storeSelector]}`).remove();
+            avatarStore.slice(storeSelector,1);
+            
+            
             const toSend = {
                 ownedAvatars : _ownedAvatars,
                 coins : _coins,
