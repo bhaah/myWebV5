@@ -46,11 +46,14 @@ let times = 0;
 function getDownDradesh(div){
     times++;
     if(times<100){
-    let time = getRandomInt(20,100);
-    setTimeout(()=>{
-        addDardoshe(div);
-        getDownDradesh(div);
-    },time);
+        let time = getRandomInt(20,100);
+        setTimeout(()=>{
+            addDardoshe(div);
+            getDownDradesh(div);
+        },time);
+    }
+    else{
+        times=0;
     }
     
 }

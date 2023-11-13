@@ -23,7 +23,7 @@
 
     <div class="upper-pannel shadow-lg " id="upper_pannel">
         <div class="img-profile" id="div_img_profile">
-            <img id="avatar-profile-img" class="img-profile">
+            <img onclick="animateBtn('profile_btn_id')"  id="avatar-profile-img" class="img-profile">
         </div>
         <div class="rigth-label-pannel" id="div_user_inf">
             <div style="display: flex;">
@@ -31,7 +31,7 @@
                 
             </div>
             <div>
-                <h2 class="coins-amount" id="coins_amount_a"><%= data.coins %>
+                <h2 class="coins-amount" id="coins_amount_a"><span id="coins_amount_a_number"><%= data.coins %></span>
                     <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">
                 </h2>
             </div>
@@ -47,7 +47,7 @@
                     
                 </div>
                 <div style="display: flex;justify-content: center;">
-                    <h2 class="coins-amount" id="coins_amount_b"><%= data.coins %>
+                    <h2 class="coins-amount" id="coins_amount_b"><span id="coins_amount_b_number"><%= data.coins %></span>
                         <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">
                     </h2>
                 </div>
@@ -74,9 +74,10 @@
                     <button class="profile-btns" onclick="buySelectedAvatar()" id="buy_selected_avatar_btn" style="display: none;">buy</button>
                     <button  id="right_list_btn"  style="right: 100px;" class="profile-btns" onclick="slideList(true)"><i class="fa fa-arrow-right" aria-hidden="true"></i>
                     </button>
+                    
                 </div>
-                <div id="store_avatars">
-
+                <div>
+                    <button class="profile-btns" style="margin-top: 80px;" onclick="closeProfile()">close</button>
                 </div>
             </div>
         </div>

@@ -6,6 +6,11 @@ let userName ='';
 let _currAvatar='';
 let _ownedAvatars = [];
 let _coins = 0;
+const CoinsAmount = newAmount => {
+    _coins =newAmount;
+    document.getElementById('coins_amount_a_number').innerHTML = _coins;
+    document.getElementById('coins_amount_b_number').innerHTML = _coins;
+}
 
 
 async function onLoad(){
@@ -32,6 +37,7 @@ async function onLoad(){
         avatarImage.src = `../assets/profileAvatars/${data.currAvatar}.png`;
         _currAvatar=data.currAvatar;
     }
+    CoinsAmount(data.coins);
     _ownedAvatars=data.ownedAvatars;
     console.log(data.ownedAvatars);
     console.log(typeof _ownedAvatars);
@@ -239,6 +245,7 @@ function animateBtn(id){
 
 function slideBtns(){
     const div = document.getElementById('div_home_btns');
+    div.classList.remove('sliding-btns-back');
     div.classList.add('sliding-btns');
 }
 
@@ -252,9 +259,10 @@ function slidePanelDown(){
     const userInfDiv = document.getElementById('div_user_inf');
     userInfDiv.style.display = 'none';
     const divImg=document.getElementById('div_img_profile');
-    const divPageInfo = document.getElementById('profile_page');
-    divPageInfo.style.display = 'flex';
+    
     setTimeout(()=>{
+        const divPageInfo = document.getElementById('profile_page');
+        divPageInfo.style.display = 'flex';
         getOwnedAvatars();
         const btns = document.getElementById('control_btns');
         btns.style.display = 'flex';
@@ -262,6 +270,28 @@ function slidePanelDown(){
     loadStore();
 }
 
+
+function closeProfile(){
+    const duckBtn = document.getElementById('say-something');
+    duckBtn.style.display = 'flex';
+    const panel = document.getElementById('upper_pannel');
+    panel.style.animationName = 'panel-slide-up';
+    const imgProfile= document.getElementById('avatar-profile-img');
+    imgProfile.style.animationName = 'menimize-img-profile';
+    setTimeout(()=>{
+        const userInfDiv = document.getElementById('div_user_inf');
+        userInfDiv.style.display = 'block';
+        const div = document.getElementById('div_home_btns');
+        
+        div.classList.remove('sliding-btns');
+
+        div.classList.add('sliding-btns-back');
+        
+    },2000)
+    
+    const divPageInfo = document.getElementById('profile_page');
+    divPageInfo.style.display = 'none';
+}
 
 
 const addAvatarItem = (avatar,un,p) =>{
@@ -480,13 +510,14 @@ async function buySelectedAvatar(){
             document.getElementById(`li_${avatarStore[storeSelector]}`).remove();
             congratulations(avatarStore[storeSelector]);
             _coins -= avatarSales[avatarStore[storeSelector]];
-            document.getElementById('coins_amount_a').innerHTML =`${_coins} <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">`;
-            document.getElementById('coins_amount_b').innerHTML = `${_coins} <img style="height: 4vh;" src="../assets/free-coin-icon-794-thumb (1).png">`;
+            CoinsAmount(_coins);
+            
             delete avatarSales[avatarStore[storeSelector]];
             _ownedAvatars.push(avatarStore[storeSelector]);
-            if(document.getElementById(`li_${avatarStore[storeSelector]}`)!==null) document.getElementById(`li_${avatarStore[storeSelector]}`).remove();
-            avatarStore.slice(storeSelector,1);
+            if(document.getElementById(`li_${avatarStore[storeSelector]}`) !== null) document.getElementById(`li_${avatarStore[storeSelector]}`).remove();
             
+            avatarStore.splice(storeSelector,1);
+            getStoreAvatars();
             
             const toSend = {
                 ownedAvatars : _ownedAvatars,
@@ -514,7 +545,7 @@ async function buySelectedAvatar(){
 }
 
 function badBuy(){
-    const coinsAmount = document.getElementById('coins_amount');
+    const coinsAmount = document.getElementById('coins_amount_b');
     coinsAmount.classList.add('bad-buy-click');
     setTimeout(()=>{
         coinsAmount.classList.remove('bad-buy-click');
