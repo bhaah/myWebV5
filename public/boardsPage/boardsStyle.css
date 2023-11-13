@@ -1,0 +1,30 @@
+body{
+    background-image: url('../assets/bg.png');
+    background-size: cover;
+    background-repeat:no-repeat ;
+    background-position:70% 30%; 
+    height: 100vh;
+}
+
+.upper-panel{
+    width: 100%;
+    color: white;
+    background-color: blue;
+   height: fit-content;
+   margin: 0;
+}
+
+.btn-boards-page-panel{
+    background-color: transparent;
+    position: absolute;
+    height: fit-content;
+    border: 0;
+    font-size: x-large;
+    color:white;
+    display: inline;
+    width: 30px;
+    padding: 5px;
+    
+}
+
+

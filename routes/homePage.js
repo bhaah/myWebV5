@@ -25,4 +25,23 @@ router.get('/logout',(req,res)=>{
    
 })
 
+
+router.get('/boards',(req,res) => {
+    
+    const dataToSend = {
+        username: req.session.username,
+        email: req.session.email,
+        password: req.session.password, 
+        coins: req.session.coins,
+        currAvatar: req.session.currAvatar
+    };
+    console.log(dataToSend);
+    console.log(req.sessionID);
+    if(dataToSend.email && dataToSend.password)
+        res.render('Boards',{data:dataToSend});
+    else{
+        res.redirect('../');
+    }
+});
+
 module.exports = router;

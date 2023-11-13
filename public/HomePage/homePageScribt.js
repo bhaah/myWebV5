@@ -236,6 +236,9 @@ function animateBtn(id){
             slideBtns();
             setTimeout(slidePanelDown,200);
             break;
+        case 'boards_btn_id':
+            window.location.assign('./boards');
+            break;
         default:
             break;
     }
@@ -250,6 +253,7 @@ function slideBtns(){
 }
 
 function slidePanelDown(){
+    ownedStoreList=false;
     const duckBtn = document.getElementById('say-something');
     duckBtn.style.display = 'none';
     const panel = document.getElementById('upper_pannel');
