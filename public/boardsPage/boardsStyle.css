@@ -27,4 +27,80 @@ body{
     
 }
 
+.create-board-btn-div{
+    position: fixed;
+    bottom: 10px;
+    right:0px ;
+    justify-content: flex-end;
+}
 
+.create-board-btn{
+    color: white;
+    background-color: blue;
+    font-size: 80px;
+    border: 0;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    padding: 0px;
+    padding-bottom: 10px;
+    align-content: center;
+    justify-content: center;
+    display: grid;
+
+}
+
+.input-div-board-creation{
+    height: 80px;
+    background-color: blue;
+    display: inline-flex;
+    border-radius: 54px;
+    margin-right: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 70%;
+    position: fixed;
+    z-index: -1;
+    
+}
+
+.slide-creation-board-panel-c {
+    animation: 0.5s forwards slide-creation-board-panel;
+}
+
+.slide-creation-board-panel-c-r {
+    animation: forwards 0.5s slide-creation-board-panel-r;
+}
+@keyframes slide-creation-board-panel {
+    0% {width: 0%; right: 0px;}
+    20% {width: 20%; right: 70px;}
+    100% {width: 70%; right: 70px;}
+}
+
+@keyframes slide-creation-board-panel-r {
+    0% {width: 70%; right: 70px;}
+    
+    100% {width: 0%; right: 0px;}
+}
+
+.rotate-btn-c{
+    animation: 0.5s rotate-btn forwards;
+}
+
+
+
+@keyframes rotate-btn {
+    0% {rotate: 0deg;}
+    100% {rotate: -45deg;}
+}
+
+.rotate-btn-c-r{
+    animation: 0.5s rotate-btn-r forwards;
+}
+
+
+
+@keyframes rotate-btn-r {
+    0% {rotate: -45deg;}
+    100% {rotate: 0deg;}
+}

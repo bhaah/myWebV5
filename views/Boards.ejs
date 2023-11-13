@@ -9,4 +9,19 @@
 
     <button class="btn-boards-page-panel" style="padding-bottom: 8px; " onclick="backToHome()"> <i class="fa fa-arrow-left" aria-hidden="true" style="width: 30px;"></i></button>
     <h1 style="justify-content: center; display: flex; padding-bottom: 15px;">Boards</h1>
+    
+</div>
+<div class="create-board-btn-div">
+    <div style="display: flex;justify-content: flex-end;">
+        <div class="input-div-board-creation" id="panel_of_creating_board_div">
+            <div style="display: none;flex-direction: column; margin: 5px;" id="input_name">
+                <p style="display: flex;align-items: center;color: white; margin-bottom: 2px;">Name</p>
+                <input style="width:60%;display: flex;align-items: center;height: 1.4em;">
+            </div>
+            
+            <div style="display: none;" id="submit_btn"><button style="border: 0; background-color: transparent; color: white;">submit</button></div>
+        </div>
+        <button class="create-board-btn" id="creat_board_btn" onclick="changeCreatBoardMode()">+</button>
+        
+    </div>
 </div>
