@@ -104,3 +104,9 @@ body{
     0% {rotate: -45deg;}
     100% {rotate: 0deg;}
 }
+
+.board-item{
+   justify-content: center;
+   margin: 30px;
+ 
+}

@@ -134,6 +134,25 @@ app.post('/updateProfile', (req,res)=>{
     
 })
 
+app.post('/setCornersBoard',(req,res)=>{
+    console.log( req.body.corners);
+    req.session.corners = req.body.corners;
+    req.session.save();
+    console.log('hi from app post corners');
+    res.send();
+})
+
+app.post('/getCorners',(req,res)=>{
+    const data={
+        corners : req.session.corners,
+        email :req.session.email,
+        password : req.session.password
+    };
+    const jsonData= JSON.stringify(data);
+    res.send(jsonData);
+})
+
+
 
 app.use('/',require('./routes/index'));
 app.use('/register',require('./routes/register'));

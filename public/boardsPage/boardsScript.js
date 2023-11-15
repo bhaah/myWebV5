@@ -15,6 +15,12 @@ const getE = (id) =>{
 
 // =========================================================
 
+
+function stam(){
+    console.log('stam');
+}
+
+
 function backToHome(){
     window.location.replace('./homePage');
 }
@@ -88,12 +94,13 @@ function replaceAnimation(element,classOfAnimation,toRemoveReverse){
 
 async function submit(){
     const newBoardName = getE('input_el').value;
-    console.log(newBoardName);
-    
-    const formData = new FormData();
-    formData.append('email',_email);
-    formData.append('password',_password);
-    formData.append('nameOfBoard',newBoardName);
+    if(newBoardName !=='') {
+        console.log(newBoardName);
+        getE('input_el').value='';
+        const formData = new FormData();
+        formData.append('email',_email);
+        formData.append('password',_password);
+        formData.append('nameOfBoard',newBoardName);
 
     await fetch('https://api-backend-of-my-app.onrender.com/api/Home/creatBoard',{
         method:'POST',
@@ -104,12 +111,63 @@ async function submit(){
         _boards.push(result.ReturnValue);
     }).catch(error=>console.log(error));
     loadBoardList();
+    }
+    
 
 
 }
 
 
+function getNewBoard(name,id){
+    return `<li onclick="getInBoard('${id}')" id="${id}_board" class="list-group-item board-item" style="    display: flex;
+    background-color: rgb(11 34 254 / 80%);
+    color: white;
+    border: 0;
+    font-size: xx-large;
+    border-radius: 40px;">${name}</li>`
+}
+
+
 function loadBoardList(){
-    //restart the list and fill it with the names , using functiuon that get the id param : id 
-    //and work accordinly
+    const list = getE('list_boards_ul');
+    list.innerHTML = '';
+    for(let x =0 ; x<_boards.length;x++){
+        const boardData = _boards[x];
+        
+        list.innerHTML += getNewBoard(boardData.Name,boardData.ID);
+
+    }
+}
+
+async function getInBoard(id){
+    simulateLoading();
+    const formData = new FormData();
+        formData.append('email',_email);
+        formData.append('password',_password);
+        formData.append('BoardId',id);
+
+    await fetch('https://api-backend-of-my-app.onrender.com/api/Home/getInBoard',{
+        method:'POST',
+        body:formData
+    }).then( response=>  {
+        return (response.json());
+    }).then(async result=>{
+        console.log(result);
+        const data = {
+            corners : result.ReturnValue
+        };
+        const jsonData = JSON.stringify(data);
+        await fetch('../setCornersBoard',{
+            method: 'POST',
+            headers :{
+                'Content-Type': 'application/json',
+            },
+            body:jsonData
+        }).then(res=>{
+            console.log('hi fromseting corners');
+            return res;}).catch(error=>console.log(error));
+    }).catch(error=>console.log(error));
+    
+    stopLoading();
+    window.location.assign('./board');
 }
