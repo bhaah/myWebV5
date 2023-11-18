@@ -17,6 +17,96 @@ let _boardId= 0 ;
 function setBoardId(id) {
     _boardId=id;
 }
+let _boardName = '';
+function setBoardName(boardName){
+    _boardName = boardName;
+    getE('the_name_of_curr_board').innerHTML = _boardName;
+}
+// =================================NOTES=========================================
+
+function closeNotes(){
+    getE('notes_container').style.display= 'none';
+}
+
+
+function updateNoteHieght(id){
+    getE(id).style.height = `${getE(id).scrollHeight}px`
+    getE(id+'_save_btn').style.display='block';
+}
+
+async function saveNoteChanges(id){
+    const newContent = getE(id).value;
+    const noteId=getE(id).noteId;
+    const map = {
+        'noteId':noteId,'noteToChange' : newContent
+    };
+
+
+    simulateLoading();
+    await callAPI('editNote',map).then(result=>{
+        stopLoading();
+        getE(id+'_save_btn').style.display='none';
+    })
+}
+
+function addNote(note){
+    console.log(note);
+    const noteDiv = document.createElement('div');
+    noteDiv.classList.add('corner-item');
+    noteDiv.style.color = "white";
+    noteDiv.id = note.Id + '_note_div';
+    noteDiv.innerHTML = `
+    <textarea onclick="addListenerToDelete(${note.Id})" type="text" style="color:white;width: 90%;background-color: transparent;border: 0;" oninput="updateNoteHieght(id)" id="${note.Id}_note"></textarea>
+    <button onclick="saveNoteChanges('${note.Id}_note')" class="note-btn" id="${note.Id}_note_save_btn" style="display: none;">save</button>`;
+    getE('notes_list').appendChild(noteDiv);
+    getE(`${note.Id}_note`).addEventListener('select',()=>{
+        addListenerToDelete(note.Id);
+    })
+    getE(`${note.Id}_note`).value = note.Content;
+    getE(`${note.Id}_note`).noteId = note.Id;
+    getE(`${note.Id}_note`).style.height = `${getE(`${note.Id}_note`).scrollHeight}px`;
+}
+    
+function addListenerToDelete(id){
+    console.log('the text area is selected '+id);
+    getE('delete_note_btn').addEventListener('click',()=>{
+        deleteNote(id);
+    })
+}
+
+async function deleteNote(id){
+    const map = {'noteId':id};
+    simulateLoading();
+    await callAPI('deleteNote',map).then(result=>{
+        stopLoading();
+        if(!result.ErrorOccured){
+            getE(`${id}_note_div`).remove();
+        }
+    })
+}
+async function addNoteBtn(){
+    const map = {
+        'content':'_','id':0
+    };
+    simulateLoading();
+    await callAPI('addNote',map).then(result=>{
+        stopLoading();
+        addNote(result.ReturnValue);
+    });
+}
+
+async function openNotes(){
+    simulateLoading();
+    await callAPI('getNotesOfBoard',{}).then(result=>{
+        stopLoading();
+        getE('notes_container').style.display = 'block';
+        getE('notes_list').innerHTML ='';
+        result.ReturnValue.forEach(note=>addNote(note));
+    })
+}
+
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^NOTES^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 async function loadCorners(){
     simulateLoading();
@@ -34,6 +124,7 @@ async function loadCorners(){
         _emailCornerPage=result.email;
         _passwordCornerPage=result.password;
         setBoardId(result.boardId);
+        setBoardName(result.boardName);
     }).catch(error=>console.log(error));
     stopLoading();
     loadCornersList();
@@ -444,7 +535,8 @@ function creatCornerDiv(id,name,disc){
     return `
 <div onclick="openTasks(${id})" class="corner-item" id="${id}_corner">
     <div style="width: 70%;">
-        <h2 style="word-wrap: break-word;">${name}</h2>
+        <h2 style="word-wrap: break-word;"><i onclick="deleteCorner(${id})" class="fa fa-trash" aria-hidden="true"></i>
+        ${name}</h2>
         <p style="word-wrap: break-word;">${disc}</p>
     </div>
     <div style="width:30%;">
@@ -460,6 +552,17 @@ function creatCornerDiv(id,name,disc){
 
 function forTest(){
     console.log('hi');
+}
+
+async function deleteCorner(id){
+    const map = {
+        'corId':id
+    };
+    simulateLoading();
+    await callAPI('deleteCorner',map).then(result=>{
+        refreshCorners();
+        stopLoading();
+    })
 }
 
 

@@ -119,7 +119,7 @@ async function submit(){
 
 
 function getNewBoard(name,id){
-    return `<li onclick="getInBoard('${id}')" id="${id}_board" class="list-group-item board-item" style="    display: flex;
+    return `<li onclick="getInBoard('${id}','${name}')" id="${id}_board" class="list-group-item board-item" style="    display: flex;
     background-color: rgb(11 34 254 / 80%);
     color: white;
     border: 0;
@@ -139,7 +139,7 @@ function loadBoardList(){
     }
 }
 
-async function getInBoard(id){
+async function getInBoard(id,name){
     simulateLoading();
     setBoardId(id);
     const formData = new FormData();
@@ -156,7 +156,8 @@ async function getInBoard(id){
         console.log(result);
         const data = {
             corners : result.ReturnValue,
-            boardId:id
+            boardId:id,
+            boardName:name
         };
         const jsonData = JSON.stringify(data);
         await fetch('../setCornersBoard',{

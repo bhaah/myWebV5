@@ -44,29 +44,46 @@
         
         <div  class="creat-task-div window-info" >
             <div style="    position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;">
-            <h1>creat new task</h1>
-            <label for="name" style="font-size: x-large;">Tittle</label>
-            <input id="creat_new_task_tittle" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
-            <label style="font-size: x-large;">Description</label>
-            <input id="creat_new_task_descreption" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
-            <label style="font-size: x-large;">deadline date</label>
-            <input id="creat_new_task_deadline" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="datetime-local">
-            <div style="display: flex;justify-content: center;">
-                <button onclick="submitCreatingTask()" style="font-size: x-large;border: 0;background-color: green;border-radius: 3px;margin: 15px;padding: 5px;">submit</button>
-                <button onclick="closeCreatTaskWindow()" style="font-size: x-large;border: 0;background-color: red; color: white;border-radius: 3px;padding: 5px;margin: 15px;">close</button>
+                display: flex;
+                flex-direction: column;
+                justify-content: center;">
+                <h1>creat new task</h1>
+                <label for="name" style="font-size: x-large;">Tittle</label>
+                <input id="creat_new_task_tittle" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
+                <label style="font-size: x-large;">Description</label>
+                <input id="creat_new_task_descreption" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
+                <label style="font-size: x-large;">deadline date</label>
+                <input id="creat_new_task_deadline" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="datetime-local">
+                <div style="display: flex;justify-content: center;">
+                    <button onclick="submitCreatingTask()" style="font-size: x-large;border: 0;background-color: green;border-radius: 3px;margin: 15px;padding: 5px;">submit</button>
+                    <button onclick="closeCreatTaskWindow()" style="font-size: x-large;border: 0;background-color: red; color: white;border-radius: 3px;padding: 5px;margin: 15px;">close</button>
                 
+                </div>
             </div>
         </div>
     </div>
+    <div id="notes_container" style="z-index: 3;display: none;width: 100%;height: 100%; background-color: transparent;position: absolute;">
+        <div class="window-info" style="height: 70vh;">
+            <div style="width: 100%;height: 30px;">
+                <i onclick="closeNotes()" style="right: 0;margin: 10px;position: absolute;" class="fa fa-times" aria-hidden="true"></i>
+            </div>
+            <div id="notes_list" style="overflow: scroll;height: 60vh;">
+                <div style="color:white;" class="corner-item">
+                    <textarea type="text" style="width: 90%;background-color: transparent;border: 0;" oninput="updateNoteHieght(id)" id="*_note"></textarea>
+                    <button onclick="saveNoteChanges('*_note')" class="note-btn" id="*_note_save_btn" style="display: none;">save</button>
+                </div>
+            </div>
+            <div>
+                
+                <button class="note-btn" onclick="addNoteBtn()">add</button>
+                <button id="delete_note_btn" class="note-btn" style="background-color: red;">delete selected</button>
+            </div>
+        </div>
     </div>
-
     <div class="upper-panel">
         <div style="position: relative;display: flex;">
-            <h1 id="name_of_board" style="color: white; padding: 10px;"><i class="fa fa-tasks" aria-hidden="true"></i> nameBoard</h1>
-            <button style="position: absolute;right: 10px;top: 10px;border: 0;background-color: transparent;display: flex;color: white;">Notes <i style="margin: 10px;color: white;" class="fa fa-sticky-note" aria-hidden="true"></i>
+            <h1 id="name_of_board" style="color: white; padding: 10px;"><i class="fa fa-tasks" aria-hidden="true"></i> <span id="the_name_of_curr_board"></span></h1>
+            <button onclick="openNotes()" style="position: absolute;right: 10px;top: 10px;border: 0;background-color: transparent;display: flex;color: white;">Notes <i style="margin: 10px;color: white;" class="fa fa-sticky-note" aria-hidden="true"></i>
             </i>
             </button>
         </div>
