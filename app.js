@@ -137,6 +137,7 @@ app.post('/updateProfile', (req,res)=>{
 app.post('/setCornersBoard',(req,res)=>{
     console.log( req.body.corners);
     req.session.corners = req.body.corners;
+    req.session.boardId=req.body.boardId;
     req.session.save();
     console.log('hi from app post corners');
     res.send();
@@ -146,7 +147,8 @@ app.post('/getCorners',(req,res)=>{
     const data={
         corners : req.session.corners,
         email :req.session.email,
-        password : req.session.password
+        password : req.session.password,
+        boardId:req.session.boardId
     };
     const jsonData= JSON.stringify(data);
     res.send(jsonData);

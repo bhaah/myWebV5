@@ -3,34 +3,94 @@
 <script>window.onload=loadCorners;</script>
 <link rel="stylesheet" href="../boardsPage/boardsStyle.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="../boardsPage/boardsStyle.css">
 
 <link rel="stylesheet" href="../boardsPage/boardCorner.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-
+<script src="../loadingScribt.js"></script>
+<%- include('loading.ejs') %>
 
 <div class="body">
+    <div id="task_info_container" style="display: none;z-index: 3;;width: 100%;height: 100%; background-color: transparent;position: absolute;">
+        <div  class="window-info" style="padding: 15px;height: fit-content;">
+            
+            <h1>
+                <span id="Name_task_info_span"></span><i onclick="editTask('Name')" style="display: none;margin: 14px;" id="edit_tittle" class="fa fa-pencil" aria-hidden="true"></i></h1>
+            <h3>
+                <span id="Description_task_info_span"></span> <i id="edit_desc" style="margin: 14px;display: none;" class="fa fa-pencil" aria-hidden="true" onclick="editTask('Desc')"></i></h3>
+            <h4 style="color: red;margin: 4px;"><i style="display: none;margin: 14px;" id="edit_deadline"  class="fa fa-pencil" aria-hidden="true" onclick="editTask('Deadline')"></i>
+                deadline:<span id="TaskFor_task_info_span"></span></h4>
+            <h4 style="margin: 4px;"><i id="edit_start_time" style="display: none; margin: 14px;" class="fa fa-pencil" aria-hidden="true" onclick="editTask('StartTime')"></i>
+                to Start in: <span id="TaskStart_task_info_span"></span></h4>
+
+                
+            <div style="height: 25vh;"> 
+                <div id="editing_task_info_div" style="display: none;align-items: center;flex-direction: column;">
+                    <label id="label_of_editing">new ______</label>
+                    <input id="input_of_editing">
+                    <button onclick="submitEditing()" id="submit_editing" style="border: 0;background-color: #016b6b;color: white;border-radius: 3px;margin: 10px;" >submit edit</button>
+                    <button style="border: 0;background-color: red;color: white;border-radius: 3px;margin: 10px;" onclick="closeEditor()">cancel edit</button>
+                </div>
+            </div>
+            <div style="bottom: 10px;position: absolute;">
+                <button onclick="openTaskInfo()" style="border: 0;background-color: #016b6b;color: white;border-radius: 3px;margin: 10px;">close task info</button>
+                <button onclick="openEditTaskSelector()" style="border: 0;background-color: #016b6b;color: white;border-radius: 3px;margin: 10px;">edit</button>
+                <button id="delete_task_btn" onclick="deleteTask()" style="border: 0;background-color: red;color: white;border-radius: 3px;margin: 10px;" >delete task</button>
+            </div>
+        </div>
+    </div>
+    <div id="creat_new_task_window" style="z-index: 3;;width: 100%;height: 100%; background-color: transparent;position: absolute;display: none;">
+        
+        <div  class="creat-task-div window-info" >
+            <div style="    position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;">
+            <h1>creat new task</h1>
+            <label for="name" style="font-size: x-large;">Tittle</label>
+            <input id="creat_new_task_tittle" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
+            <label style="font-size: x-large;">Description</label>
+            <input id="creat_new_task_descreption" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="text">
+            <label style="font-size: x-large;">deadline date</label>
+            <input id="creat_new_task_deadline" style="background-color: transparent;border: 0px;border-bottom:solid 2px;" type="datetime-local">
+            <div style="display: flex;justify-content: center;">
+                <button onclick="submitCreatingTask()" style="font-size: x-large;border: 0;background-color: green;border-radius: 3px;margin: 15px;padding: 5px;">submit</button>
+                <button onclick="closeCreatTaskWindow()" style="font-size: x-large;border: 0;background-color: red; color: white;border-radius: 3px;padding: 5px;margin: 15px;">close</button>
+                
+            </div>
+        </div>
+    </div>
+    </div>
+
     <div class="upper-panel">
-        <h1 id="name_of_board" style="color: white; padding: 10px;"><i class="fa fa-tasks" aria-hidden="true"></i> nameBoard</h1>
+        <div style="position: relative;display: flex;">
+            <h1 id="name_of_board" style="color: white; padding: 10px;"><i class="fa fa-tasks" aria-hidden="true"></i> nameBoard</h1>
+            <button style="position: absolute;right: 10px;top: 10px;border: 0;background-color: transparent;display: flex;color: white;">Notes <i style="margin: 10px;color: white;" class="fa fa-sticky-note" aria-hidden="true"></i>
+            </i>
+            </button>
+        </div>
         <div>
             <nav class=" navbar navbar-expand-sm text-success-emphasis" style=" padding-bottom: 0;background-color: transparent; color: white;">
                 <ul class="btns-of-cols text-cener btn-col navbar-nav" style="display: grid;margin-bottom: 0;">
-                    <li class="nav-item" style="display: grid;justify-content: center;background-color: #016b6b;border-bottom:solid 2px darkcyan;">
+                    <li onclick="setCol(0)" id="col_0" class="nav-item" style="display: grid;justify-content: center;background-color: #016b6b;border-bottom:solid 2px darkcyan;">
                         new
                     </li>
-                    <li class="nav-item " style="display: grid;justify-content: center;">
+                    <li onclick="setCol(1)" id="col_1" class="nav-item " style="display: grid;justify-content: center;">
                         waiting
                     </li>
-                    <li class="nav-item" style="display: grid;justify-content: center;">
+                    <li onclick="setCol(2)" id="col_2" class="nav-item" style="display: grid;justify-content: center;">
                         in progress
                     </li>
-                    <li class="nav-item" style="display: grid;justify-content: center;">
+                    <li onclick="setCol(3)" id="col_3" class="nav-item" style="display: grid;justify-content: center;">
                         done
                     </li>
                 </ul>
             </nav>
         </div>
+        
     </div>
+    
     <div class="corner-container" id="corners_div">
         <div class="corner-item">
             <h2>corner</h2>
@@ -54,5 +114,22 @@
         <div class="corner-item">
             dasdsa
         </div>
+    </div>
+    <div id="add_corner_btn" class="creat-cor-container">
+        <div class="creat-cor-inputs" id="creat_cor_panel">
+            <div style="width: 200px;display: none;" id="panel_inputs">
+                <label>name</label>
+                <input style="border: 0;" id="name_new_cor_input">
+                <label>description</label>
+                <input style="border: 0;" id="description_new_cor_input">
+            </div>
+            <div style="display:flex ;align-items: center;justify-content: center;">
+                <button style="display: none;background-color: transparent;border: 0;" id="creat_btn_in_panel" onclick="creatCor()">creat</button>
+            </div>
+        </div>
+        <div style="height: 130px; ">
+            <div onclick="openNewCornerPanelInput()" id="open_add_corner_btn" class="creat-cor-btn">+</div>
+        </div>
+        
     </div>
 </div>

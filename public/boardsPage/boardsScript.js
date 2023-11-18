@@ -141,6 +141,7 @@ function loadBoardList(){
 
 async function getInBoard(id){
     simulateLoading();
+    setBoardId(id);
     const formData = new FormData();
         formData.append('email',_email);
         formData.append('password',_password);
@@ -154,7 +155,8 @@ async function getInBoard(id){
     }).then(async result=>{
         console.log(result);
         const data = {
-            corners : result.ReturnValue
+            corners : result.ReturnValue,
+            boardId:id
         };
         const jsonData = JSON.stringify(data);
         await fetch('../setCornersBoard',{
