@@ -66,6 +66,22 @@ async function load(){
 
 
 async function reloadBoardsPageInBackground(){
+    await fetch('../getlogedinuser',{
+        method:'POST',
+        headers:{
+            
+            'Content-Type': 'application/json',
+            
+        }
+    }).then(response=>{
+        //console.log(response.json());
+        return response.json();
+    }).then(result=>{
+        console.log(result);
+        _email=result.email;
+        _password = result.password;
+        
+    }).catch(error=>console.log(error));
     const dataToSend = new FormData();
     dataToSend.append('email',_email);
     dataToSend.append('password',_password);
