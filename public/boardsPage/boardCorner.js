@@ -1,4 +1,4 @@
-
+// ============================funs that will help===========================================
 let corIsOpend = {};
 let _col = 0;
 let panelNewCornerIsOpened = false;
@@ -22,13 +22,49 @@ function setBoardName(boardName){
     _boardName = boardName;
     getE('the_name_of_curr_board').innerHTML = _boardName;
 }
-// =================================NOTES=========================================
+//form data contain email and password
+formDataBase = ()=>{
+    const formData = new FormData();
+    formData.append('email',_emailCornerPage);
+    formData.append('password',_passwordCornerPage);
+    return formData;
+}
 
+formDataBuilder =(map) =>{
+    const formData =new FormData();
+    formData.append('email',_emailCornerPage);
+    formData.append('password',_passwordCornerPage);
+    Object.keys(map).forEach(key=>formData.append(key,map[key]))
+    return formData;
+}
+
+// API REQUEST
+async function callAPI(reqName,map){
+    const formData = formDataBuilder(map);
+    return await fetch(`https://api-backend-of-my-app.onrender.com/api/Home/${reqName}`,{
+        method:'POST',body :formData
+    }).then(response=>{
+        return response.json();
+    }).catch(error=>console.log(error));
+}
+// form data contain the updates rquest params
+formDataUpdate = (toUpadteKey,toUpdateValue,corId,placeOnArray)=>{
+    console.log(`${corId}`);
+    const formData = formDataBase();
+    formData.append('corId',corId);
+    formData.append('taskId',_colTasks[corId][_col][placeOnArray].Id);
+    formData.append('status',_col);
+    formData.append(toUpadteKey,toUpdateValue);
+    return formData;
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+// =================================NOTES=========================================
+//close note window
 function closeNotes(){
     getE('notes_container').style.display= 'none';
 }
 
-
+//to match the input height
 function updateNoteHieght(id){
     getE(id).style.height = `${getE(id).scrollHeight}px`
     getE(id+'_save_btn').style.display='block';
@@ -48,7 +84,7 @@ async function saveNoteChanges(id){
         getE(id+'_save_btn').style.display='none';
     })
 }
-
+//add note to the list
 function addNote(note){
     console.log(note);
     const noteDiv = document.createElement('div');
@@ -66,14 +102,14 @@ function addNote(note){
     getE(`${note.Id}_note`).noteId = note.Id;
     getE(`${note.Id}_note`).style.height = `${getE(`${note.Id}_note`).scrollHeight}px`;
 }
-    
+//select not to delete
 function addListenerToDelete(id){
     console.log('the text area is selected '+id);
     getE('delete_note_btn').addEventListener('click',()=>{
         deleteNote(id);
     })
 }
-
+//delete selected note 
 async function deleteNote(id){
     const map = {'noteId':id};
     simulateLoading();
@@ -84,6 +120,7 @@ async function deleteNote(id){
         }
     })
 }
+//add note button
 async function addNoteBtn(){
     const map = {
         'content':'_','id':0
@@ -94,7 +131,7 @@ async function addNoteBtn(){
         addNote(result.ReturnValue);
     });
 }
-
+//open notes window
 async function openNotes(){
     simulateLoading();
     await callAPI('getNotesOfBoard',{}).then(result=>{
@@ -107,7 +144,8 @@ async function openNotes(){
 
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^NOTES^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+//==========================CORNERS============================================================
+//Main load page function
 async function loadCorners(){
     simulateLoading();
     console.log('hi');
@@ -126,12 +164,43 @@ async function loadCorners(){
         setBoardId(result.boardId);
         setBoardName(result.boardName);
     }).catch(error=>console.log(error));
-    stopLoading();
+    
     loadCornersList();
     loadTasks();
+    stopLoading();
+    setTimeout(reloadBoardCornersPageInBackground,60000);
 }
 
+async function reloadBoardCornersPageInBackground(){
+    const map = {'BoardId':_boardId};
+    await callAPI('getInBoard',map).then(result=>{
+        _corners=result.ReturnValue;
+    });
+    loadTasks();
+    setTimeout(reloadBoardCornersPageInBackground,60000);
+}
+
+
+//creat div for each _corner element , and animate the progress circle 
+function loadCornersList(){
+    _cornerDiv().innerHTML ='';
+    for(let i=0;i<_corners.length;i++){
+        corIsOpend[_corners[i].ID]=false;
+        _cornerDiv().innerHTML += creatCornerDiv(_corners[i].ID,_corners[i].Name,_corners[i].Description);
+        
+        //145 is for 0% of the circle - 360 is 100% of the circle
+        const degs = _corners[i].Progress*2.15;
+        getE(`${_corners[i].ID}_progress`).style.strokeDasharray = `${360}`;
+
+
+        getE(`${_corners[i].ID}_progress`).style.setProperty('--progress',`${360-degs}`);
+        getE(`${_corners[i].ID}_progress`).classList.add('animate-progress-c');
+    }
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^CORNERS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//===============================TASKS====================================================
 async function loadTasks(){
+    
     for(let i=0;i<_corners.length;i++){
         let corTasks ={
             "0":[],
@@ -154,22 +223,7 @@ async function loadTasks(){
             if(allTasks!==null){
                 for(let x=0 ; x<allTasks.length;x++){
                     corTasks[`${allTasks[x].Status}`].push(allTasks[x]);
-                    // switch(allTasks[x].Status){
-                    //     case 0:
-                    //         corTasks.col_a.push(allTasks[x]);
-                    //         break;
-                    //     case 1:
-                    //         corTasks.col_b.push(allTasks[x]);
-                    //         break;
-                    //     case 2:
-                    //         corTasks.col_c.push(allTasks[x]);
-                    //         break;
-                    //     case 3:
-                    //         corTasks.col_d.push(allTasks[x]);
-                    //         break;
-                    //     default:
-                    //         break;
-                    // }
+                    
                 }
                 console.log(corTasks);
                 _colTasks[_corners[i].ID] = corTasks;
@@ -177,25 +231,12 @@ async function loadTasks(){
             
         })
     }
+   
 }
 
 
 
-function loadCornersList(){
-    _cornerDiv().innerHTML ='';
-    for(let i=0;i<_corners.length;i++){
-        corIsOpend[_corners[i].ID]=false;
-        _cornerDiv().innerHTML += creatCornerDiv(_corners[i].ID,_corners[i].Name,_corners[i].Description);
-        
-        //145 is for 0% of the circle - 360 is 100% of the circle
-        const degs = _corners[i].Progress*2.15;
-        getE(`${_corners[i].ID}_progress`).style.strokeDasharray = `${360}`;
 
-
-        getE(`${_corners[i].ID}_progress`).style.setProperty('--progress',`${360-degs}`);
-        getE(`${_corners[i].ID}_progress`).classList.add('animate-progress-c');
-    }
-}
 let _styleSheet ;
 const styleSheet = ()=>{
     if(_styleSheet===null)_styleSheet=document.createElement('style');
@@ -379,20 +420,7 @@ async function submitCreatingTask(){
     getE('creat_new_task_deadline').value='';
 }
 
-formDataBase = ()=>{
-    const formData = new FormData();
-    formData.append('email',_emailCornerPage);
-    formData.append('password',_passwordCornerPage);
-    return formData;
-}
 
-formDataBuilder =(map) =>{
-    const formData =new FormData();
-    formData.append('email',_emailCornerPage);
-    formData.append('password',_passwordCornerPage);
-    Object.keys(map).forEach(key=>formData.append(key,map[key]))
-    return formData;
-}
 
 async function moveTask(corId,placeOnArray){
     if(_col===0 && _colTasks[corId][_col][placeOnArray]['TaskStart']==='0001-01-01T00:00:00'){
@@ -412,15 +440,6 @@ async function moveTask(corId,placeOnArray){
             }
         })
     }
-}
-
-async function callAPI(reqName,map){
-    const formData = formDataBuilder(map);
-    return await fetch(`https://api-backend-of-my-app.onrender.com/api/Home/${reqName}`,{
-        method:'POST',body :formData
-    }).then(response=>{
-        return response.json();
-    }).catch(error=>console.log(error));
 }
 
 // sending the editing request to the api 
@@ -465,15 +484,7 @@ async function submitEditing(){
 }
 
 
-formDataUpdate = (toUpadteKey,toUpdateValue,corId,placeOnArray)=>{
-    console.log(`${corId}`);
-    const formData = formDataBase();
-    formData.append('corId',corId);
-    formData.append('taskId',_colTasks[corId][_col][placeOnArray].Id);
-    formData.append('status',_col);
-    formData.append(toUpadteKey,toUpdateValue);
-    return formData;
-}
+
 
 
 async function deleteTask(){

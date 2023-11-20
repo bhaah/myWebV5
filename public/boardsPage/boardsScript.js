@@ -59,9 +59,30 @@ async function load(){
     }).catch(error=>console.log(error));
     console.log(_boards);
     loadBoardList();
+    reloadBoardsPageInBackground();
 
 }
 
+
+
+async function reloadBoardsPageInBackground(){
+    const dataToSend = new FormData();
+    dataToSend.append('email',_email);
+    dataToSend.append('password',_password);
+
+
+    const boards = await fetch('https://api-backend-of-my-app.onrender.com/api/Home/Boards',{
+        method:'POST', 
+        body: dataToSend
+    }).then(response=>{
+        return response.json();
+
+    }).then(result=>{
+        _boards = result.ReturnValue;
+    }).catch(error=>console.log(error));
+    console.log(_boards);
+    setTimeout(reloadBoardsPageInBackground,60000);
+}
 
 
 function changeCreatBoardMode(){
@@ -118,13 +139,36 @@ async function submit(){
 }
 
 
+async function deleteBoard(id){
+    const formData = new FormData();
+    formData.append('email',_email);
+    formData.append('passowd',_password);
+    formData.append('boardId',id);
+    simulateLoading();
+    await fetch('https://api-backend-of-my-app.onrender.com/api/Home/deleteBoard',{
+        method:'POST',body:formData
+    }).then(response=>{
+        return response.json();
+    }).then(result=>{
+        console.log(result);
+        stopLoading();
+        let newBoards = [];
+        _boards.forEach(element =>{
+            if(element.ID!==id) newBoards.push(element);
+        })
+        
+        _boards= newBoards;
+        loadBoardList();
+    }).catch(error=>console.log(error));
+}
+
 function getNewBoard(name,id){
-    return `<li onclick="getInBoard('${id}','${name}')" id="${id}_board" class="list-group-item board-item" style="    display: flex;
+    return `<li  id="${id}_board" class="list-group-item board-item" style="    display: flex;
     background-color: rgb(11 34 254 / 80%);
     color: white;
     border: 0;
     font-size: xx-large;
-    border-radius: 40px;">${name}</li>`
+    border-radius: 40px;"><i onclick="deleteBoard(${id})" style="margin:10px; position:absolute;left:0;" class="fa fa-trash" aria-hidden="true"></i><p onclick="getInBoard('${id}','${name}')"> ${name}</p></li>`
 }
 
 
