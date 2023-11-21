@@ -63,7 +63,20 @@ async function load(){
 
 }
 
+async function abcd(){
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("https://localhost:8080/chatHub")
+    .build();
 
+connection.on("ReceiveMessage", (user, message) => {
+    // Handle the received message
+    console.log(`${user}: ${message}`);
+});
+
+connection.start()
+    .then(() => console.log("Connection established"))
+    .catch(err => console.error(err));
+}
 
 async function reloadBoardsPageInBackground(){
     await fetch('../getlogedinuser',{
@@ -156,26 +169,29 @@ async function submit(){
 
 
 async function deleteBoard(id){
-    const formData = new FormData();
-    formData.append('email',_email);
-    formData.append('passowd',_password);
-    formData.append('boardId',id);
-    simulateLoading();
-    await fetch('https://api-backend-of-my-app.onrender.com/api/Home/deleteBoard',{
-        method:'POST',body:formData
-    }).then(response=>{
-        return response.json();
-    }).then(result=>{
-        console.log(result);
-        stopLoading();
-        let newBoards = [];
-        _boards.forEach(element =>{
-            if(element.ID!==id) newBoards.push(element);
-        })
-        
-        _boards= newBoards;
-        loadBoardList();
-    }).catch(error=>console.log(error));
+    if(confirmDelete('board')){
+        const formData = new FormData();
+        formData.append('email',_email);
+        formData.append('passowd',_password);
+        formData.append('boardId',id);
+        simulateLoading();
+        await fetch('https://api-backend-of-my-app.onrender.com/api/Home/deleteBoard',{
+            method:'POST',body:formData
+        }).then(response=>{
+            return response.json();
+        }).then(result=>{
+            console.log(result);
+            stopLoading();
+            let newBoards = [];
+            _boards.forEach(element =>{
+                if(element.ID!==id) newBoards.push(element);
+            })
+            
+            _boards= newBoards;
+            loadBoardList();
+        }).catch(error=>console.log(error));
+    }
+    
 }
 
 function getNewBoard(name,id){

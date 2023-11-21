@@ -111,14 +111,17 @@ function addListenerToDelete(id){
 }
 //delete selected note 
 async function deleteNote(id){
-    const map = {'noteId':id};
-    simulateLoading();
-    await callAPI('deleteNote',map).then(result=>{
-        stopLoading();
-        if(!result.ErrorOccured){
-            getE(`${id}_note_div`).remove();
-        }
-    })
+    if(confirmDelete('note')){
+        const map = {'noteId':id};
+        simulateLoading();
+        await callAPI('deleteNote',map).then(result=>{
+            stopLoading();
+            if(!result.ErrorOccured){
+                getE(`${id}_note_div`).remove();
+            }
+        })
+    }
+    
 }
 //add note button
 async function addNoteBtn(){
@@ -488,7 +491,8 @@ async function submitEditing(){
 
 
 async function deleteTask(){
-    const corId=getE('delete_task_btn').corId;
+    if(confirmDelete('task')){
+        const corId=getE('delete_task_btn').corId;
     const placeOnArray = getE('delete_task_btn').placeOnArray;
     const map = {
         'email':_emailCornerPage,'password':_passwordCornerPage,'boardId':_boardId,'corId':corId,'taskId':_colTasks[corId][_col][placeOnArray].Id
@@ -506,6 +510,8 @@ async function deleteTask(){
         stopLoading();
         console.log(result);
     });
+    }
+    
 }
 
 function openTaskInfo(corId,placeOnArray){
@@ -566,14 +572,17 @@ function forTest(){
 }
 
 async function deleteCorner(id){
-    const map = {
-        'corId':id
-    };
-    simulateLoading();
-    await callAPI('deleteCorner',map).then(result=>{
-        refreshCorners();
-        stopLoading();
-    })
+    if(confirmDelete('corner')){
+        const map = {
+            'corId':id
+        };
+        simulateLoading();
+        await callAPI('deleteCorner',map).then(result=>{
+            refreshCorners();
+            stopLoading();
+        })
+    }
+    
 }
 
 
@@ -634,3 +643,8 @@ async function creatCor(){
     getE('description_new_cor_input').value='';
     getE('name_new_cor_input').value='';
 }   
+
+
+function confirmDelete(toDelete){
+    return window.confirm('are you sure want to delete '+toDelete);
+}

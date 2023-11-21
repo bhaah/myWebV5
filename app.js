@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const { connect } = require('mongoose');
 const store = new session.MemoryStore();
 
+
 const app = express();
 
 app.use(cors());
@@ -168,4 +169,5 @@ app.use('/user',require('./routes/homePage'));
 const PORT = process.env.PORT || 5000;
 
 
-app.listen(PORT , console.log(`server started on port ${PORT}`))
+app.listen(PORT , console.log(`server started on port ${PORT}`));
+
