@@ -239,6 +239,9 @@ function animateBtn(id){
         case 'boards_btn_id':
             window.location.assign('./boards');
             break;
+        case 'calendar_btn_id':
+            window.location.assign('./calendar');
+            break;    
         default:
             break;
     }

@@ -225,6 +225,10 @@ async function loadTasks(){
             let allTasks=result.ReturnValue;
             if(allTasks!==null){
                 for(let x=0 ; x<allTasks.length;x++){
+                    allTasks[x].TaskFor=fixDateTime(allTasks[x].TaskFor);
+                    const newTime = (allTasks[x].TaskStart==='0001-01-01T00:00:00')?"<br>There is no start time":fixDateTime(allTasks[x].TaskStart);
+                    allTasks[x].TaskStart=newTime;
+
                     corTasks[`${allTasks[x].Status}`].push(allTasks[x]);
                     
                 }
@@ -237,6 +241,11 @@ async function loadTasks(){
    
 }
 
+const fixDateTime=(ddl)=>{
+    ddl = ddl.substring(0,ddl.length-3);
+    ddl = ddl.replace("T","<br>");
+    return"<br>"+ddl;
+}
 
 
 

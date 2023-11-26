@@ -61,5 +61,19 @@ router.get('/board',(req,res) => {
     }
 });
 
+router.get('/calendar',(req,res)=>{
+    const dataToSend = {
+        
+        email: req.session.email,
+        password: req.session.password, 
+        
+    };
+    if(dataToSend.email && dataToSend.password)
+        res.render('Calendar');
+    else{
+        res.redirect('../');
+    }
+})
+
 
 module.exports = router;
