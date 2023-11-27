@@ -1,11 +1,30 @@
 <script src="../boardsPage/boardsScript.js"></script>
 <script src="../boardsPage/boardCorner.js"></script>
 <script src="../CalendarPage/calendarScribt.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 
 <script>window.onload=loadCalendarPage</script>
 
-
-<h1>calendar page</h1>
-<ul id="task_calendar_ul">
+<link rel="stylesheet" href="../CalendarPage/calendarStyle.css">
+<div class="body">
     
-</ul>
+    <div style="height: 70px;align-items: center;display: flex;position: relative;justify-content: center;background-color:blue;">
+        <h1 style="color: wheat;">calendar page</h1>
+        <button onclick="backToHome()" style="position: absolute;left: 10px;top: 20px;border: 0;background-color: transparent;color: white;"><i style="width: 30px;" class="fa fa-arrow-left" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div id="set_time_to_start_container" style="display:none;align-items: center;position: absolute;z-index: 2;width: 100%;height: 100%;background-color: rgba(240, 255, 255, 0.603);justify-content: center;top: 0;">
+        <div style="padding: 30px;flex-direction: column;display: flex;justify-content: center;align-items: center;color: white;border-radius: 20px;width: 70%;height: 50vh;background-color: #9c38ff;">
+            <h1>Set start time of the task:</h1>
+            <input id="new_start_time_calendar" type="datetime-local" style="background-color: transparent;margin: 10px;border: 0;color: white;">
+            <button onclick="editStartTime()" style="margin: 20px;border: 0;background-color: transparent;color: white;">Set</button>
+            <button onclick="closeCalendarStartTime()" style="margin: 20px;border: 0;background-color: transparent;color: white;">Cancel</button>
+        </div>
+    </div>
+    <div id="task_calendar_ul" class="calendar-task-container">
+        
+    </div>
+</div>

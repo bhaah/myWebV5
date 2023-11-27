@@ -81,6 +81,7 @@ app.post('/getlogedinuser',(req,res)=>{
         email: req.session.email,
         password : req.session.password,
         username : req.session.username,
+        coins : req.session.coins
     }
     console.log(data);
     const jsonData = JSON.stringify(data);

@@ -421,7 +421,8 @@ async function submitCreatingTask(){
             stopLoading();
             return response.json();
         }).then(result=>{
-            _colTasks[_currCorId]["0"].push(result.ReturnValue);
+            const task = fixDateTimeTask(result.ReturnValue);
+            _colTasks[_currCorId]["0"].push(task);
             openTasks(_currCorId);
             refreshCorners();
         }).catch(error=>console.log(error));
@@ -433,6 +434,12 @@ async function submitCreatingTask(){
 }
 
 
+function fixDateTimeTask(task){
+    task.TaskFor=fixDateTime(task.TaskFor);
+    const newTime = (task.TaskStart==='0001-01-01T00:00:00')?"<br>There is no start time":fixDateTime(task.TaskStart);
+    task.TaskStart=newTime;
+    return task;
+}
 
 async function moveTask(corId,placeOnArray){
     if(_col===0 && _colTasks[corId][_col][placeOnArray]['TaskStart']==='0001-01-01T00:00:00'){
@@ -487,9 +494,16 @@ async function submitEditing(){
                     default:
                         break;
                 }
+                if(toChange==='TaskStart' || toChange==='TaskFor'){
+                    _colTasks[corId][_col][placeOnArray]=fixDateTimeTask(_colTasks[corId][_col][placeOnArray]);
+                    
+                }
                 _colTasks[corId][_col][placeOnArray][toChange]= input;
                 getE(toChange+'_task_info_span').innerHTML =input; 
+                
+                loadTasks();
                 openTasks(corId);
+                
             }
         }).catch(error=>console.log(error));
     }
@@ -527,7 +541,7 @@ function openTaskInfo(corId,placeOnArray){
     console.log('hi from open task info function');
     getE('task_info_container').style.display=(getE('task_info_container').style.display==='none')? 'block':'none';
     if(corId!==null) {
-        buidTaskInfo(_colTasks[corId][_col][placeOnArray]);
+        if(_colTasks[corId][_col][placeOnArray]) buidTaskInfo(_colTasks[corId][_col][placeOnArray]);
         getE('submit_editing').corId = corId;
         getE('submit_editing').placeOnArray = placeOnArray;
         getE('delete_task_btn').corId=corId;

@@ -54,8 +54,38 @@ async function onLoad(){
     email=userData.email;
     password=userData.password;
     userName = userData.username;
+    _coins = userData.coins;
+    CoinsAmount(_coins);
     setArticle();
+    setTimeout(reloadHomePage,60000);
     
+}
+
+
+async function reloadHomePage(){
+    const userData =await fetch('../getlogedinuser',{
+        method:'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }).then(response =>{
+        return response.json();
+    }).catch(error=>console.log(error));
+    email=userData.email;
+    password=userData.password;
+    userName = userData.username;
+    const formData = new FormData();
+    formData.append('email',email);
+    formData.append('password',password);
+    await fetch('https://api-backend-of-my-app.onrender.com/api/Home/userProfile',{
+        method:'POST',body:formData
+    }).then(response=>{
+        return response.json();
+    }).then(result=>{
+        _coins=result.ReturnValue.Coins;
+    }).catch(error=>console.log(error));
+    CoinsAmount(_coins);
+    setTimeout(reloadHomePage,60000);
 }
 
 
