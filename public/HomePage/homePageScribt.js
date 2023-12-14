@@ -204,27 +204,27 @@ function setArticle(){
     switch(articleNumber){
         case 0:
             setArticleAnimation('0.5s',a,'25px');
-            timeDelay=2000;
+            timeDelay=3000;
             break;
         case 1:
             setArticleAnimation('1s',b,'20px');
-            timeDelay=1700;
+            timeDelay=2700;
             break;
         case 2:
             setArticleAnimation('1s',c,'20px');
-            timeDelay=1700;
+            timeDelay=2700;
             break;
         case 3:
             setArticleAnimation('0.5s',d,'20px');
-            timeDelay=1500;
+            timeDelay=2500;
             break;
         case 4:
             setArticleAnimation('1s',e,'19px');
-            timeDelay=1700;
+            timeDelay=2700;
             break;
         case 5:
             setArticleAnimation('1s',f,'20px');
-            timeDelay=2000;
+            timeDelay=3000;
             break;
         default:
             break;    

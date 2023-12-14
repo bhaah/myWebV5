@@ -38,7 +38,7 @@
         </div>
 
         <div class="panel-button position-absolute top-0 ">
-            <button onclick="logout()" class="btn btn-danger">logout</button>
+            <button onclick="logout()" class="btn btn-danger" style="right: 10vh;position: absolute;top: 5vh;">logout</button>
         </div>
         <div class="profile-page" id="profile_page">
             <div class="profile-page-upper-part">
@@ -83,9 +83,12 @@
         </div>
     </div>
     <div class="position-relative row justify-content-center" id="div_home_btns">
-        <div class="home-article">
-            <p class="home-article-p" id="article_txt_id"></p>
+        <div style="width: 100vh;display: flex;justify-content: center;">
+            <div class="home-article">
+                <p class="home-article-p" id="article_txt_id"></p>
+            </div>
         </div>
+        
         <button class="home-btn option-btn" onclick="animateBtn(id)" id="calendar_btn_id">Calendar</button>
         <button class="home-btn option-btn" onclick="animateBtn(id)" id="boards_btn_id">Boards</button>
         <button class="home-btn option-btn" onclick="animateBtn(id)" id="profile_btn_id">Profile</button>
