@@ -41,20 +41,31 @@ async function callServer(reqName,body){
 
 // --------------------------- Load page -------------------------------------------
 async function loadCalendarPage(){
+    
     await callServer('getlogedinuser',{}).then(result=>{
         _email_calendar=result.email;
         _password_calendar=result.password;
         _username_calendar=result.password;
     });
+    //await calendarCallAPI('refreshTasks',{});
     await calendarCallAPI('calendar',{}).then(result=>{
         tasksObjects = result.ReturnValue;
     });
     disableTasks();
+    setTimeout(refresh,10000);
+}
+async function refresh(){
+    await calendarCallAPI('refreshTasks',{});
+   
+    await calendarCallAPI('calendar',{}).then(result=>{
+        tasksObjects = result.ReturnValue;
+    });
+    disableTasks();
+    setTimeout(refresh,60000);
 }
 
-
 function disableTasks(){
-    
+    getE('task_calendar_ul').innerHTML='';
     tasksObjects.forEach(element=>{
         const li = document.createElement('div');
         li.classList.add('calendar-task-item');
